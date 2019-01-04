@@ -6,11 +6,7 @@
  */
 
 #include "gtest/gtest.h"
-#include "array.h"
-
-TEST(getNumbertest, positive) {
-    EXPECT_EQ(1, getNumber(1));
-}
+#include "myarray.h"
 
 TEST(containtest, positive) {
     // Recursive

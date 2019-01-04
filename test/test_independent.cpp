@@ -39,21 +39,21 @@ TEST(nullclasssizeoftest, positive) {
 TEST(operatorcopytest, positive) {
     class MyString {
     public:
-        MyString(char *pData = NULL) {
+        MyString(char* pData = NULL) {
             if (pData != NULL) {
                 mPData = new char[strlen(pData) + 1];
                 strcpy(mPData, pData);
             }
         }
 
-        MyString(const MyString &str) {
+        MyString(const MyString& str) {
             if (str.mPData != NULL) {
                 mPData = new char[strlen(str.mPData) + 1];
                 strcpy(mPData, str.mPData);
             }
         }
 
-        MyString& operator =(const MyString &str) {
+        MyString& operator =(const MyString& str) {
             if (this != &str) {
                 MyString temp(str);
                 char *tempString = temp.mPData;
@@ -74,7 +74,7 @@ TEST(operatorcopytest, positive) {
             return mPData;
         }
     private:
-        char *mPData;
+        char* mPData;
     };
 
     char a[] = "abcdefg";
@@ -119,17 +119,17 @@ private:
     MySingleton() :
             mData(0) {
     }
-    static MySingleton *sInstance;
+    static MySingleton* sInstance;
     int mData;
 };
 
 MySingleton* MySingleton::sInstance = NULL;
 
 TEST(singletontest, positive) {
-    MySingleton *a = MySingleton::getInstance();
+    MySingleton* a = MySingleton::getInstance();
     EXPECT_EQ(0, a->getData());
 
-    MySingleton *b = MySingleton::getInstance();
+    MySingleton* b = MySingleton::getInstance();
     EXPECT_EQ(0, b->getData());
 
     a->setData(1);
@@ -151,10 +151,24 @@ TEST(arraysizeoftest, positive) {
     int sizeof1 = sizeof(data1);
     EXPECT_EQ(20, sizeof1);
 
-    int *data2 = data1;
+    int* data2 = data1;
     int sizeof2 = sizeof(data2);
     EXPECT_EQ(8, sizeof2);
 
     int sizeof3 = getSize(data1);
     EXPECT_EQ(8, sizeof3);
+}
+
+TEST(stringsizeoftest, positive) {
+    const char* str = "12345";
+    EXPECT_EQ(5, strlen(str));
+
+    char str1[] = "hello world";
+    char str2[] = "hello world";
+
+    const char* str3 = "hello world";
+    const char* str4 = "hello world";
+
+    EXPECT_FALSE(str1 == str2);
+    EXPECT_TRUE(str3 == str4);
 }

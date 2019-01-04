@@ -7,11 +7,7 @@
 
 #include <stdio.h>
 
-int getNumber(int number) {
-    return number;
-}
-
-bool containRecursive(const int *array, int rowBegin, int rowEnd,
+bool containRecursive(const int* array, int rowBegin, int rowEnd,
         int columnBegin, int columnEnd, const int rows, const int columns,
         int number) {
     if (array == NULL || rowBegin < 0 || columnBegin < 0 || rows <= 0
@@ -33,7 +29,7 @@ bool containRecursive(const int *array, int rowBegin, int rowEnd,
     return true;
 }
 
-bool containNonRecursive(const int *array, int rowBegin, int rowEnd,
+bool containNonRecursive(const int* array, int rowBegin, int rowEnd,
         int columnBegin, int columnEnd, const int rows, const int columns,
         int number) {
     if (array == NULL || rowBegin < 0 || columnBegin < 0 || rows <= 0
@@ -55,7 +51,7 @@ bool containNonRecursive(const int *array, int rowBegin, int rowEnd,
     return false;
 }
 
-bool contain(const int *array, int rowBegin, int rowEnd, int columnBegin,
+bool contain(const int* array, int rowBegin, int rowEnd, int columnBegin,
         int columnEnd, const int rows, const int columns, int number,
         bool isRecursive) {
     return isRecursive ?
