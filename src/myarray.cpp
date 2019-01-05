@@ -6,8 +6,9 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
-bool containRecursive(const int* array, int rowBegin, int rowEnd,
+static bool containRecursive(const int* array, int rowBegin, int rowEnd,
         int columnBegin, int columnEnd, const int rows, const int columns,
         int number) {
     if (array == NULL || rowBegin < 0 || columnBegin < 0 || rows <= 0
@@ -29,7 +30,7 @@ bool containRecursive(const int* array, int rowBegin, int rowEnd,
     return true;
 }
 
-bool containNonRecursive(const int* array, int rowBegin, int rowEnd,
+static bool containNonRecursive(const int* array, int rowBegin, int rowEnd,
         int columnBegin, int columnEnd, const int rows, const int columns,
         int number) {
     if (array == NULL || rowBegin < 0 || columnBegin < 0 || rows <= 0
@@ -61,3 +62,28 @@ bool contain(const int* array, int rowBegin, int rowEnd, int columnBegin,
                     rows, columns, number);
 }
 
+char* merge(const char* const src, char* const desc, int maxLen) {
+    if (src == NULL || desc == NULL) {
+        return NULL;
+    }
+
+    int srcLen = strlen(src), descLen = strlen(desc);
+    if (srcLen + descLen > maxLen) {
+        return NULL;
+    }
+
+    int srcIndex = srcLen - 1, descIndex1 = descLen - 1, descIndex2 = srcLen
+            + descLen - 1;
+    while (descIndex1 < descIndex2) {
+        if (*(desc + descIndex1) < *(src + srcIndex)) {
+            *(desc + descIndex2) = *(src + srcIndex);
+            --srcIndex;
+        } else {
+            *(desc + descIndex2) = *(desc + descIndex1);
+            --descIndex1;
+        }
+        --descIndex2;
+    }
+
+    return desc;
+}

@@ -13,7 +13,7 @@
  * 构造函数和析构函数只需要通过类型指向指针，本身在实例中不占有内存
  * 存在虚拟函数，编译器会为每个实例添加一个指向虚函数表的指针，占用指针长度的内存
  */
-TEST(nullclasssizeoftest, positive) {
+TEST(independenttest, nullclasssizeof) {
     class a {
 
     };
@@ -36,7 +36,7 @@ TEST(nullclasssizeoftest, positive) {
     EXPECT_EQ(8, sizeof(c));
 }
 
-TEST(operatorcopytest, positive) {
+TEST(independenttest, operatorcopy) {
     class MyString {
     public:
         MyString(char* pData = NULL) {
@@ -125,7 +125,7 @@ private:
 
 MySingleton* MySingleton::sInstance = NULL;
 
-TEST(singletontest, positive) {
+TEST(independenttest, singleton) {
     MySingleton* a = MySingleton::getInstance();
     EXPECT_EQ(0, a->getData());
 
@@ -146,7 +146,7 @@ TEST(singletontest, positive) {
 int getSize(int data[]) {
     return sizeof(data);
 }
-TEST(arraysizeoftest, positive) {
+TEST(independenttest, arraysizeof) {
     int data1[] = { 1, 2, 3, 4, 5 };
     int sizeof1 = sizeof(data1);
     EXPECT_EQ(20, sizeof1);
@@ -159,7 +159,7 @@ TEST(arraysizeoftest, positive) {
     EXPECT_EQ(8, sizeof3);
 }
 
-TEST(stringsizeoftest, positive) {
+TEST(independenttest, stringsizeof) {
     const char* str = "12345";
     EXPECT_EQ(5, strlen(str));
 

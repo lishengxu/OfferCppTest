@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 #include "myarray.h"
 
-TEST(containtest, positive) {
+TEST(myarraytest, contain) {
     // Recursive
     EXPECT_FALSE(contain(NULL, 0, 0, 0, 0, 0, 0, 1));
     // NonRecursive
@@ -82,3 +82,44 @@ TEST(containtest, positive) {
 
 }
 
+int cmp(const void* a, const void* b) {
+    return *(char*) a - *(char*) b;
+}
+TEST(myarraytest, merge) {
+    EXPECT_STREQ(NULL, merge(NULL, NULL, 1));
+
+    char src[1024] = { 0 }, desc[2048] = { 0 };
+    EXPECT_STREQ("", merge(src, desc, 1));
+
+    strcpy(src, "abc");
+    strcpy(desc, "bcd");
+    EXPECT_STREQ(NULL, merge(src, desc, 5));
+    EXPECT_EQ(2048, sizeof(desc));
+
+    memset(src, 0, sizeof(src));
+    memset(desc, 0, sizeof(desc));
+    strcpy(src, "a");
+    strcpy(desc, "");
+    EXPECT_STREQ("a", merge(src, desc, sizeof(desc)));
+
+    memset(src, 0, sizeof(src));
+    memset(desc, 0, sizeof(desc));
+    strcpy(src, "");
+    strcpy(desc, "a");
+    EXPECT_STREQ("a", merge(src, desc, sizeof(desc)));
+
+    memset(src, 0, sizeof(src));
+    memset(desc, 0, sizeof(desc));
+    strcpy(src, "abcdefghiijkkklmn");
+    strcpy(desc, "bcdfghiiikmn");
+    EXPECT_STREQ("abbccddeffgghhiiiiijkkkklmmnn",
+            merge(src, desc, sizeof(desc)));
+
+    memset(src, 0, sizeof(src));
+    memset(desc, 0, sizeof(desc));
+    strcpy(src, "adfjalfdjall");
+    strcpy(desc, "adjfajfdlkafd");
+    qsort(src, strlen(src), sizeof(char), cmp);
+    qsort(desc, strlen(desc), sizeof(char), cmp);
+    EXPECT_STREQ("aaaaaadddddfffffjjjjkllll", merge(src, desc, sizeof(desc)));
+}
