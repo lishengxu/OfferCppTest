@@ -95,3 +95,37 @@ TEST(mylisttest, removeNode) {
     EXPECT_EQ(NULL, pHead->mNext->mNext);
 }
 
+TEST(mylisttest, printlist) {
+    std::vector<int> pOut;
+    printList(NULL, true, &pOut);
+
+    ListNode* pHead = NULL;
+    printList(&pHead, true, &pOut);
+    EXPECT_EQ(0, pOut.size());
+
+    addToTail(&pHead, 1);
+    printList(&pHead, true, &pOut);
+    EXPECT_EQ(1, pOut.size());
+    EXPECT_EQ(1, pOut.front());
+
+    pOut.clear();
+    printList(&pHead, false, &pOut);
+    EXPECT_EQ(1, pOut.size());
+    EXPECT_EQ(1, pOut.front());
+
+    addToTail(&pHead, 2);
+    addToTail(&pHead, 3);
+    addToTail(&pHead, 4);
+    pOut.clear();
+    printList(&pHead, true, &pOut);
+    EXPECT_EQ(4, pOut.size());
+    EXPECT_EQ(1, pOut.front());
+    EXPECT_EQ(4, pOut.back());
+
+    pOut.clear();
+    printList(&pHead, false, &pOut);
+    EXPECT_EQ(4, pOut.size());
+    EXPECT_EQ(4, pOut.front());
+    EXPECT_EQ(1, pOut.back());
+}
+

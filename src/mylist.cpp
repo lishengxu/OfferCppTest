@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <stack>
 #include "mylist.h"
 
 void deleteList(ListNode** pHead) {
@@ -51,7 +52,6 @@ void removeNode(ListNode** pHead, int value) {
         ListNode* pDel = *pHead;
         *pHead = (*pHead)->mNext;
         delete pDel;
-        pDel = NULL;
     }
 
     if (*pHead != NULL) {
@@ -70,5 +70,61 @@ void removeNode(ListNode** pHead, int value) {
     }
 }
 
+static void printListReverseRecursive(ListNode* node, std::vector<int>* pOut) {
+    if (node != NULL) {
+        printListReverseRecursive(node->mNext, pOut);
+        printf("%d\n", node->mValue);
+        if (pOut != NULL) {
+            pOut->push_back(node->mValue);
+        }
+    }
+}
 
+static void printListReverseNonRecursive(ListNode* node,
+        std::vector<int>* pOut) {
+    ListNode* pCur = node;
+    std::stack<ListNode*> nodes;
+    while (pCur != NULL) {
+        nodes.push(pCur);
+        pCur = pCur->mNext;
+    }
+
+    while (!nodes.empty()) {
+        pCur = nodes.top();
+        nodes.pop();
+        printf("%d\n", pCur->mValue);
+        if (pOut != NULL) {
+            pOut->push_back(pCur->mValue);
+        }
+    }
+}
+
+static void printListReverse(ListNode* node, std::vector<int>* pOut,
+        bool recursive = true) {
+    if (recursive) {
+        printListReverseRecursive(node, pOut);
+    } else {
+        printListReverseNonRecursive(node, pOut);
+    }
+}
+
+void printList(ListNode** pHead, bool forward/*=true*/,
+        std::vector<int>* pOut/*=NULL*/) {
+    if (pHead == NULL) {
+        return;
+    }
+
+    if (forward) {
+        ListNode* pCur = *pHead;
+        while (pCur != NULL) {
+            printf("%d\n", pCur->mValue);
+            if (pOut != NULL) {
+                pOut->push_back(pCur->mValue);
+            }
+            pCur = pCur->mNext;
+        }
+    } else {
+        printListReverse(*pHead, pOut, false);
+    }
+}
 

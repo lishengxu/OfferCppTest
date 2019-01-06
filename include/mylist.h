@@ -8,6 +8,8 @@
 #ifndef MYLIST_H_
 #define MYLIST_H_
 
+#include <vector>
+
 struct ListNode {
     int mValue;
     ListNode* mNext;
@@ -28,5 +30,13 @@ ListNode* addToTail(ListNode** pHead, int value);
  * 删除链表中所有值为value的节点
  */
 void removeNode(ListNode** pHead, int value);
+
+/**
+ * 打印链表
+ * forward=true表示从头向尾打印，false表示从尾向头打印
+ * pOut表示支持输出打印的输出
+ */
+void printList(ListNode** pHead, bool forward = true, std::vector<int>* pOut =
+        NULL);
 
 #endif /* MYLIST_H_ */
