@@ -7,8 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "mytree.h"
-
-#define ARRAY_LEN(x) (sizeof(x) / sizeof(x[0]))
+#include "common.h"
 
 static int preOrder1[] = { 0 };
 static int inOrder1[] = { 0 };
