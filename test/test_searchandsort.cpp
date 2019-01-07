@@ -47,10 +47,44 @@ TEST(searchandsorttest, quickSort) {
         EXPECT_EQ(arrayNoSort3[i], arraySort3[i]);
     }
 
+    int arrayNoSort4[] = { 4, 3, 2, 6, 9, 1, 0, 7, 8, 5 };
+    quickSort(arrayNoSort4, ARRAY_LEN(arrayNoSort4), false);
+    int arraySort4[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    for (int i = 0, size = ARRAY_LEN(arrayNoSort4); i < size; ++i) {
+        EXPECT_EQ(arrayNoSort4[i], arraySort4[size - i - 1]);
+    }
+
+    int arrayNoSort5[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    quickSort(arrayNoSort5, ARRAY_LEN(arrayNoSort5), false);
+    int arraySort5[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    for (int i = 0, size = ARRAY_LEN(arrayNoSort5); i < size; ++i) {
+        EXPECT_EQ(arrayNoSort5[i], arraySort5[size - i - 1]);
+    }
 }
 
+TEST(searchandsorttest, findMin) {
+    try {
+        findMin(NULL, 0);
+        int array0[] = { };
+        findMin(array0, ARRAY_LEN(array0));
+        ADD_FAILURE();
+    } catch (std::exception& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
 
+    int array1[] = { 1 };
+    EXPECT_EQ(1, findMin(array1, ARRAY_LEN(array1)));
 
+    int array2[] = { 1, 0, 1, 1, 1 };
+    EXPECT_EQ(0, findMin(array2, ARRAY_LEN(array2)));
 
+    int array3[] = { 1, 1, 1, 0, 1 };
+    EXPECT_EQ(0, findMin(array3, ARRAY_LEN(array3)));
 
+    int array4[] = { 0, 1, 2, 3, 4, 5, 6 };
+    EXPECT_EQ(0, findMin(array4, ARRAY_LEN(array4)));
+
+    int array5[] = { 3, 4, 5, 6, 0, 1, 2, 3 };
+    EXPECT_EQ(0, findMin(array5, ARRAY_LEN(array5)));
+}
 
