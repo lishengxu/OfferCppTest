@@ -225,8 +225,3 @@ void levelOrder(BinaryTreeNode* pRoot, std::vector<int>* pOut/*=NULL*/) {
     }
 }
 
-
-
-
-
-
