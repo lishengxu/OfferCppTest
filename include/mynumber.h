@@ -18,4 +18,15 @@ int fibonacci(int n);
  */
 double myPower(double base, int power);
 
+/**
+ * 打印1到最大的n位数字
+ */
+void print1ToMaxOfNDigits(const int n, bool recursive = true,
+        std::vector<std::string> *pOut = NULL);
+
+/**
+ * 大数加法
+ */
+const char* add(const char* left, const char* right);
+
 #endif /* MYNUMBER_H_ */
