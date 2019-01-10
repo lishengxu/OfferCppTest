@@ -225,3 +225,30 @@ void levelOrder(BinaryTreeNode* pRoot, std::vector<int>* pOut/*=NULL*/) {
     }
 }
 
+bool isChildTree(BinaryTreeNode* pRoot, BinaryTreeNode* pChildRoot) {
+    if (pChildRoot == NULL) {
+        return true;
+    }
+    if (pRoot == NULL) {
+        return false;
+    }
+    if (pRoot->mValue == pChildRoot->mValue) {
+        return isChildTree(pRoot->mLeft, pChildRoot->mLeft)
+                && isChildTree(pRoot->mRight, pChildRoot->mRight);
+    }
+    return false;
+}
+
+bool hasChildTree(BinaryTreeNode* pRoot, BinaryTreeNode* pChildRoot) {
+    if (pRoot == NULL || pChildRoot == NULL) {
+        return false;
+    }
+
+    if (pRoot->mValue == pChildRoot->mValue) {
+        return isChildTree(pRoot->mLeft, pChildRoot->mLeft)
+                && isChildTree(pRoot->mRight, pChildRoot->mRight);
+    }
+    return hasChildTree(pRoot->mLeft, pChildRoot)
+            || hasChildTree(pRoot->mRight, pChildRoot);
+}
+

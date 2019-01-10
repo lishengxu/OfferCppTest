@@ -51,5 +51,10 @@ void postOrder(BinaryTreeNode* pRoot, bool recursive = true,
  */
 void levelOrder(BinaryTreeNode* pRoot, std::vector<int>* pOut = NULL);
 
+/**
+ * 判断一颗二叉树是不是另外一颗二叉树的子结构
+ */
+bool hasChildTree(BinaryTreeNode* pRoot, BinaryTreeNode* pChildRoot);
+
 #endif /* MYTREE_H_ */
 

@@ -275,3 +275,52 @@ TEST(mytreetest, levelorder) {
     destoryTree(&pNode);
     pOut.clear();
 }
+
+TEST(mytreetest, hasChildTree) {
+    EXPECT_FALSE(hasChildTree(NULL, NULL));
+
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
+    BinaryTreeNode* pChildRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
+    EXPECT_TRUE(hasChildTree(pRoot, pChildRoot));
+    destoryTree(&pRoot);
+    destoryTree(&pChildRoot);
+
+    pRoot = construct(preOrder2, inOrder2, ARRAY_LEN(preOrder2));
+    pChildRoot = construct(preOrder2, inOrder2, ARRAY_LEN(preOrder2));
+    EXPECT_TRUE(hasChildTree(pRoot, pChildRoot));
+    destoryTree(&pRoot);
+    destoryTree(&pChildRoot);
+
+    pRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    pChildRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    EXPECT_TRUE(hasChildTree(pRoot, pChildRoot));
+    destoryTree(&pRoot);
+    destoryTree(&pChildRoot);
+
+    int preOrder11[] = { 0 };
+    int inOrder11[] = { 0 };
+    int preOrder12[] = { 0, 2, 3, 4 };
+    int inOrder12[] = { 4, 3, 2, 0 };
+    pRoot = construct(preOrder12, inOrder12, ARRAY_LEN(preOrder12));
+    pChildRoot = construct(preOrder11, inOrder11, ARRAY_LEN(preOrder11));
+    EXPECT_TRUE(hasChildTree(pRoot, pChildRoot));
+    destoryTree(&pRoot);
+    destoryTree(&pChildRoot);
+
+    pRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    int preOrder13[] = { 3, 5, 6 };
+    int inOrder13[] = { 5, 3, 6 };
+    pChildRoot = construct(preOrder13, inOrder13, ARRAY_LEN(preOrder13));
+    EXPECT_TRUE(hasChildTree(pRoot, pChildRoot));
+    destoryTree(&pChildRoot);
+
+    int preOrder14[] = { 2, 5, 6 };
+    int inOrder14[] = { 5, 2, 6 };
+    pChildRoot = construct(preOrder14, inOrder14, ARRAY_LEN(preOrder14));
+    EXPECT_FALSE(hasChildTree(pRoot, pChildRoot));
+    destoryTree(&pRoot);
+    destoryTree(&pChildRoot);
+}
+
