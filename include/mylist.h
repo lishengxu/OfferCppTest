@@ -39,4 +39,9 @@ void removeNode(ListNode** pHead, int value);
 void printList(ListNode** pHead, bool forward = true, std::vector<int>* pOut =
         NULL);
 
+/**
+ * 在O(1)的时间复杂度上删除指针toDel指向的节点
+ */
+void deleteNode(ListNode** pHead, ListNode* toDel);
+
 #endif /* MYLIST_H_ */

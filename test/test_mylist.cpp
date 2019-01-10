@@ -129,3 +129,40 @@ TEST(mylisttest, printlist) {
     EXPECT_EQ(1, pOut.back());
 }
 
+TEST(mylisttest, deleteNode) {
+    deleteNode(NULL, NULL);
+
+    ListNode* pHead = NULL;
+    ListNode* pNode = addToTail(&pHead, 1);
+    deleteNode(&pHead, pNode);
+    EXPECT_EQ(NULL, pHead);
+
+    pNode = addToTail(&pHead, 1);
+    ListNode* pNodeTemp = addToTail(&pHead, 2);
+    deleteNode(&pHead, pNode);
+    EXPECT_EQ(2, pHead->mValue);
+    EXPECT_EQ(NULL, pHead->mNext);
+    deleteNode(&pHead, pNodeTemp);
+    EXPECT_EQ(NULL, pHead);
+
+    addToTail(&pHead, 2);
+    pNodeTemp = addToTail(&pHead, 3);
+    pNode = addToTail(&pHead, 4);
+    EXPECT_EQ(4, pNodeTemp->mNext->mValue);
+    EXPECT_EQ(pNode, pNodeTemp->mNext);
+    deleteNode(&pHead, pNode);
+    EXPECT_EQ(NULL, pNodeTemp->mNext);
+
+    ListNode* pTemp = new ListNode();
+    pTemp->mNext = NULL;
+    pTemp->mValue = 10;
+    try {
+        deleteNode(&pHead, pTemp);
+    } catch (std::exception& ex) {
+        EXPECT_STREQ("toDel is not a node in list", ex.what());
+    }
+}
+
+
+
+

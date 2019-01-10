@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 #include <stack>
+#include <exception>
+#include <stdexcept>
 #include "mylist.h"
 
 void deleteList(ListNode** pHead) {
@@ -128,3 +130,32 @@ void printList(ListNode** pHead, bool forward/*=true*/,
     }
 }
 
+void deleteNode(ListNode** pHead, ListNode* pToDel) {
+    if (pHead == NULL || pToDel == NULL) {
+        return;
+    }
+
+    if (*pHead == pToDel) {
+        *pHead = pToDel->mNext;
+        delete pToDel;
+        pToDel = NULL;
+    } else if (pToDel->mNext == NULL) {
+        ListNode* pCur = *pHead;
+        while (pCur->mNext != NULL && pCur->mNext != pToDel) {
+            pCur = pCur->mNext;
+        }
+
+        if (pCur->mNext == NULL) {
+            throw std::invalid_argument("toDel is not a node in list");
+        } else {
+            pCur->mNext = pToDel->mNext;
+            delete pToDel;
+            pToDel = NULL;
+        }
+    } else {
+        ListNode* pTemp = pToDel->mNext;
+        pToDel->mValue = pTemp->mValue;
+        pToDel->mNext = pTemp->mNext;
+        delete pTemp;
+    }
+}
