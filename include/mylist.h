@@ -44,4 +44,30 @@ void printList(ListNode** pHead, bool forward = true, std::vector<int>* pOut =
  */
 void deleteNode(ListNode** pHead, ListNode* toDel);
 
+/**
+ * 输出链表的倒数第k个节点
+ */
+ListNode* getKNodeToTail(ListNode** pHead, const int k);
+
+/**
+ * 获取链表中间的节点
+ */
+ListNode* getMiddleNode(ListNode** pHead);
+
+/**
+ * 是否是环形链表
+ */
+bool isCircleList(ListNode** pHead);
+
+/**
+ * 反转链表
+ */
+ListNode* reverseList(ListNode** pHead);
+
+/**
+ * 合并两个递增排序的链表
+ */
+ListNode* mergeSortedLists(ListNode** pLeft, ListNode** pRight, bool recursive =
+        false);
+
 #endif /* MYLIST_H_ */

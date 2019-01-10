@@ -159,3 +159,156 @@ void deleteNode(ListNode** pHead, ListNode* pToDel) {
         delete pTemp;
     }
 }
+
+ListNode* getKNodeToTail(ListNode** pHead, const int k) {
+    if (pHead == NULL || k < 1) {
+        return NULL;
+    }
+
+    int countOfNode = 0;
+    ListNode* pNextK = *pHead;
+    while (pNextK != NULL && countOfNode < k) {
+        pNextK = pNextK->mNext;
+        ++countOfNode;
+    }
+    if (countOfNode < k) {
+        return NULL;
+    }
+
+    ListNode* pCur = *pHead;
+    while (pNextK != NULL) {
+        pNextK = pNextK->mNext;
+        pCur = pCur->mNext;
+
+    }
+
+    return pCur;
+}
+
+ListNode* getMiddleNode(ListNode** pHead) {
+    if (pHead == NULL) {
+        return NULL;
+    }
+
+    ListNode* pCur = *pHead;
+    ListNode* pMiddle = *pHead;
+
+    while (pCur != NULL && pCur->mNext != NULL) {
+        pCur = pCur->mNext->mNext;
+        pMiddle = pMiddle->mNext;
+    }
+
+    return pMiddle;
+}
+
+bool isCircleList(ListNode** pHead) {
+    if (pHead == NULL) {
+        return false;
+    }
+
+    ListNode* pFirst = *pHead;
+    ListNode* pSecond = *pHead;
+    while (pFirst != NULL && pFirst->mNext != NULL) {
+        pFirst = pFirst->mNext->mNext;
+        pSecond = pSecond->mNext;
+        if (pFirst == pSecond) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+ListNode* reverseList(ListNode** pHead) {
+    if (pHead == NULL) {
+        return NULL;
+    }
+    ListNode* pPrev = NULL;
+    ListNode* pCur = *pHead;
+    ListNode* pNext = NULL;
+    while (pCur != NULL) {
+        pNext = pCur->mNext;
+        pCur->mNext = pPrev;
+        pPrev = pCur;
+        pCur = pNext;
+    }
+    *pHead = pPrev;
+    return pPrev;
+}
+
+static ListNode* mergeSortedListsNonRecursive(ListNode* pLeftHead,
+        ListNode* pRightHead) {
+    ListNode* pLeft = pLeftHead;
+    ListNode* pRight = pRightHead;
+    ListNode* pNewHead = NULL;
+    ListNode* pNew = pNewHead;
+    while (pLeft != NULL && pRight != NULL) {
+        if (pLeft->mValue < pRight->mValue) {
+            if (pNewHead == NULL) {
+                pNewHead = pLeft;
+                pNew = pLeft;
+            } else {
+                pNew->mNext = pLeft;
+                pNew = pLeft;
+            }
+            pLeft = pLeft->mNext;
+        } else {
+            if (pNewHead == NULL) {
+                pNewHead = pRight;
+                pNew = pRight;
+            } else {
+                pNew->mNext = pRight;
+                pNew = pRight;
+            }
+            pRight = pRight->mNext;
+        }
+    }
+    if (pLeft != NULL) {
+        if (pNewHead == NULL) {
+            pNewHead = pLeft;
+        } else {
+            pNew->mNext = pLeft;
+        }
+    }
+    if (pRight != NULL) {
+        if (pNewHead == NULL) {
+            pNewHead = pRight;
+        } else {
+            pNew->mNext = pRight;
+        }
+    }
+    return pNewHead;
+}
+
+static ListNode* mergeSortedListsRecursive(ListNode* pLeftHead,
+        ListNode* pRightHead) {
+    if (pLeftHead == NULL) {
+        return pRightHead;
+    } else if (pRightHead == NULL) {
+        return pLeftHead;
+    }
+
+    ListNode* pNewHead = NULL;
+    if (pLeftHead->mValue < pRightHead->mValue) {
+        pNewHead = pLeftHead;
+        pNewHead->mNext = mergeSortedListsRecursive(pLeftHead->mNext,
+                pRightHead);
+    } else {
+        pNewHead = pRightHead;
+        pNewHead->mNext = mergeSortedListsRecursive(pLeftHead,
+                pRightHead->mNext);
+
+    }
+    return pNewHead;
+}
+
+ListNode* mergeSortedLists(ListNode** pLeftHead, ListNode** pRightHead,
+        bool recursive) {
+    if (pLeftHead == NULL || pRightHead == NULL) {
+        return NULL;
+    }
+    return recursive ?
+            mergeSortedListsRecursive(*pLeftHead, *pRightHead) :
+            mergeSortedListsNonRecursive(*pLeftHead, *pRightHead);
+}
+

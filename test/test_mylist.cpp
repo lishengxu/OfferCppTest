@@ -93,6 +93,7 @@ TEST(mylisttest, removeNode) {
     EXPECT_EQ(6, pHead->mNext->mValue);
     EXPECT_EQ(pNode, pHead->mNext);
     EXPECT_EQ(NULL, pHead->mNext->mNext);
+    deleteList(&pHead);
 }
 
 TEST(mylisttest, printlist) {
@@ -127,6 +128,7 @@ TEST(mylisttest, printlist) {
     EXPECT_EQ(4, pOut.size());
     EXPECT_EQ(4, pOut.front());
     EXPECT_EQ(1, pOut.back());
+    deleteList(&pHead);
 }
 
 TEST(mylisttest, deleteNode) {
@@ -161,7 +163,174 @@ TEST(mylisttest, deleteNode) {
     } catch (std::exception& ex) {
         EXPECT_STREQ("toDel is not a node in list", ex.what());
     }
+    deleteList(&pHead);
 }
+
+TEST(mylisttest, getKNodeToTail) {
+    EXPECT_EQ(NULL, getKNodeToTail(NULL, 0));
+    ListNode* pHead = NULL;
+
+    addToTail(&pHead, 1);
+    EXPECT_EQ(1, getKNodeToTail(&pHead, 1)->mValue);
+
+    addToTail(&pHead, 2);
+    addToTail(&pHead, 3);
+    EXPECT_EQ(3, getKNodeToTail(&pHead, 1)->mValue);
+    EXPECT_EQ(2, getKNodeToTail(&pHead, 2)->mValue);
+    EXPECT_EQ(1, getKNodeToTail(&pHead, 3)->mValue);
+    EXPECT_EQ(NULL, getKNodeToTail(&pHead, 4));
+    deleteList(&pHead);
+}
+
+TEST(mylisttest, getMiddleNode) {
+    EXPECT_EQ(NULL, getMiddleNode(NULL));
+    ListNode* pHead = NULL;
+    addToTail(&pHead, 1);
+    EXPECT_EQ(1, getMiddleNode(&pHead)->mValue);
+
+    addToTail(&pHead, 2);
+    EXPECT_EQ(2, getMiddleNode(&pHead)->mValue);
+
+    addToTail(&pHead, 3);
+    EXPECT_EQ(2, getMiddleNode(&pHead)->mValue);
+
+    addToTail(&pHead, 4);
+    EXPECT_EQ(3, getMiddleNode(&pHead)->mValue);
+
+    addToTail(&pHead, 5);
+    EXPECT_EQ(3, getMiddleNode(&pHead)->mValue);
+
+    deleteList(&pHead);
+}
+
+TEST(mylisttest, isCircleList) {
+    EXPECT_FALSE(isCircleList(NULL));
+
+    ListNode* pHead = NULL;
+    ListNode* pNode = addToTail(&pHead, 1);
+    EXPECT_FALSE(isCircleList(&pHead));
+    pNode->mNext = pNode;
+    EXPECT_TRUE(isCircleList(&pHead));
+    pNode->mNext = NULL;
+    addToTail(&pHead, 2);
+    addToTail(&pHead, 3);
+    pNode = addToTail(&pHead, 4);
+    EXPECT_FALSE(isCircleList(&pHead));
+    pNode->mNext = pHead;
+    EXPECT_TRUE(isCircleList(&pHead));
+    pNode->mNext = pNode;
+    EXPECT_TRUE(isCircleList(&pHead));
+    pNode->mNext = NULL;
+    deleteList(&pHead);
+}
+
+TEST(mylisttest, reverseList) {
+    EXPECT_EQ(NULL, reverseList(NULL));
+
+    ListNode* pHead = NULL;
+    addToTail(&pHead, 1);
+    ListNode* pNode = reverseList(&pHead);
+    EXPECT_EQ(1, pNode->mValue);
+    EXPECT_EQ(NULL, pNode->mNext);
+
+    addToTail(&pHead, 2);
+    pNode = reverseList(&pHead);
+    EXPECT_EQ(2, pNode->mValue);
+    EXPECT_EQ(2, pHead->mValue);
+    EXPECT_EQ(1, pNode->mNext->mValue);
+
+    addToTail(&pHead, 3);
+    pNode = reverseList(&pHead);
+    EXPECT_EQ(3, pNode->mValue);
+    EXPECT_EQ(1, pNode->mNext->mValue);
+
+    deleteList(&pHead);
+}
+
+TEST(mylisttest, mergeList) {
+    EXPECT_EQ(NULL, mergeSortedLists(NULL, NULL));
+
+    ListNode* pLeft = NULL;
+    ListNode* pRight = NULL;
+    EXPECT_EQ(NULL, mergeSortedLists(&pLeft, &pRight));
+
+    addToTail(&pLeft, 1);
+    ListNode* pNew = mergeSortedLists(&pLeft, &pRight);
+    EXPECT_EQ(1, pNew->mValue);
+    EXPECT_EQ(NULL, pNew->mNext);
+    pLeft = NULL, pRight = NULL;
+    deleteList(&pNew);
+
+    addToTail(&pLeft, 1);
+    addToTail(&pRight, 3);
+    pNew = mergeSortedLists(&pLeft, &pRight);
+    EXPECT_EQ(1, pNew->mValue);
+    EXPECT_EQ(3, pNew->mNext->mValue);
+    pLeft = NULL, pRight = NULL;
+    deleteList(&pNew);
+
+    addToTail(&pLeft, 1);
+    addToTail(&pRight, 3);
+    addToTail(&pRight, 3);
+    addToTail(&pRight, 4);
+    addToTail(&pLeft, 3);
+    addToTail(&pLeft, 4);
+    addToTail(&pLeft, 5);
+    pNew = mergeSortedLists(&pLeft, &pRight);
+    EXPECT_EQ(1, pNew->mValue);
+    EXPECT_EQ(3, pNew->mNext->mValue);
+    EXPECT_EQ(3, pNew->mNext->mNext->mValue);
+    EXPECT_EQ(3, pNew->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(4, pNew->mNext->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(4, pNew->mNext->mNext->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(5, pNew->mNext->mNext->mNext->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(NULL, pNew->mNext->mNext->mNext->mNext->mNext->mNext->mNext);
+    deleteList(&pNew);
+
+    EXPECT_EQ(NULL, mergeSortedLists(NULL, NULL, true));
+    pLeft = NULL;
+    pRight = NULL;
+    EXPECT_EQ(NULL, mergeSortedLists(&pLeft, &pRight, true));
+
+    addToTail(&pLeft, 1);
+    pNew = mergeSortedLists(&pLeft, &pRight, true);
+    EXPECT_EQ(1, pNew->mValue);
+    EXPECT_EQ(NULL, pNew->mNext);
+    pLeft = NULL, pRight = NULL;
+    deleteList(&pNew);
+
+    addToTail(&pLeft, 1);
+    addToTail(&pRight, 3);
+    pNew = mergeSortedLists(&pLeft, &pRight, true);
+    EXPECT_EQ(1, pNew->mValue);
+    EXPECT_EQ(3, pNew->mNext->mValue);
+    pLeft = NULL, pRight = NULL;
+    deleteList(&pNew);
+
+    addToTail(&pLeft, 1);
+    addToTail(&pRight, 3);
+    addToTail(&pRight, 3);
+    addToTail(&pRight, 4);
+    addToTail(&pLeft, 3);
+    addToTail(&pLeft, 4);
+    addToTail(&pLeft, 5);
+    pNew = mergeSortedLists(&pLeft, &pRight, true);
+    EXPECT_EQ(1, pNew->mValue);
+    EXPECT_EQ(3, pNew->mNext->mValue);
+    EXPECT_EQ(3, pNew->mNext->mNext->mValue);
+    EXPECT_EQ(3, pNew->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(4, pNew->mNext->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(4, pNew->mNext->mNext->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(5, pNew->mNext->mNext->mNext->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(NULL, pNew->mNext->mNext->mNext->mNext->mNext->mNext->mNext);
+    deleteList(&pNew);
+}
+
+
+
+
+
+
 
 
 
