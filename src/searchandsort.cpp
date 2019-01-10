@@ -101,3 +101,38 @@ int findMin(const int* const rotateArray, const int length) {
 
     return *(rotateArray + middle);
 }
+
+static void reOrder(int* const array, const int length, bool (*rule)(int)) {
+    int *pBegin = array;
+    int *pEnd = array + length - 1;
+    while (pBegin < pEnd) {
+        while (pBegin < pEnd && rule(*pBegin)) {
+            ++pBegin;
+        }
+        while (pBegin < pEnd && !rule(*pEnd)) {
+            --pEnd;
+        }
+        if (pBegin < pEnd) {
+            int temp = *pBegin;
+            *pBegin = *pEnd;
+            *pEnd = temp;
+            ++pBegin, --pEnd;
+        }
+    }
+}
+
+static bool isOdd(int value) {
+    return value & 0x01;
+}
+
+static bool isEven(int value) {
+    return !(value & 0x01);
+}
+
+void reOrderOddEven(int* const array, const int length, bool flag) {
+    if (array == NULL || length < 1) {
+        return;
+    }
+    reOrder(array, length, flag ? isOdd : isEven);
+}
+

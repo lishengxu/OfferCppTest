@@ -28,20 +28,20 @@ TEST(searchandsorttest, binarySearch) {
 }
 
 TEST(searchandsorttest, quickSort) {
-    quickSort(NULL, 0);
+    quickSort(NULL, 0, true);
 
     int arraySort1[] = { };
-    quickSort(arraySort1, ARRAY_LEN(arraySort1));
+    quickSort(arraySort1, ARRAY_LEN(arraySort1), true);
 
     int arrayNoSort2[] = { 4, 3, 2, 6, 9, 1, 0, 7, 8, 5 };
-    quickSort(arrayNoSort2, ARRAY_LEN(arrayNoSort2));
+    quickSort(arrayNoSort2, ARRAY_LEN(arrayNoSort2), true);
     int arraySort2[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     for (int i = 0; i < ARRAY_LEN(arrayNoSort2); ++i) {
         EXPECT_EQ(arrayNoSort2[i], arraySort2[i]);
     }
 
     int arrayNoSort3[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    quickSort(arrayNoSort3, ARRAY_LEN(arrayNoSort3));
+    quickSort(arrayNoSort3, ARRAY_LEN(arrayNoSort3), true);
     int arraySort3[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     for (int i = 0; i < ARRAY_LEN(arrayNoSort3); ++i) {
         EXPECT_EQ(arrayNoSort3[i], arraySort3[i]);
@@ -86,5 +86,52 @@ TEST(searchandsorttest, findMin) {
 
     int array5[] = { 3, 4, 5, 6, 0, 1, 2, 3 };
     EXPECT_EQ(0, findMin(array5, ARRAY_LEN(array5)));
+}
+
+TEST(searchandsorttest, reOrderOddEven) {
+    reOrderOddEven(NULL, 0);
+
+    int array1[] = { 1 };
+    reOrderOddEven(array1, ARRAY_LEN(array1));
+    int array1result[] = { 1 };
+    for (int i = 0, size = ARRAY_LEN(array1); i < size; ++i) {
+        EXPECT_EQ(array1result[i], array1[i]);
+    }
+
+    int array2[] = { 2 };
+    reOrderOddEven(array2, ARRAY_LEN(array2));
+    int array2result[] = { 2 };
+    for (int i = 0, size = ARRAY_LEN(array2); i < size; ++i) {
+        EXPECT_EQ(array2result[i], array2[i]);
+    }
+
+    int array3[] = { 1, 3, 5, 7, 9, 11 };
+    reOrderOddEven(array3, ARRAY_LEN(array3));
+    int array3result[] = { 1, 3, 5, 7, 9, 11 };
+    for (int i = 0, size = ARRAY_LEN(array3); i < size; ++i) {
+        EXPECT_EQ(array3result[i], array3[i]);
+    }
+
+    int array4[] = { 2, 4, 6, 8, 10, 12 };
+    reOrderOddEven(array4, ARRAY_LEN(array4));
+    int array4result[] = { 2, 4, 6, 8, 10, 12 };
+    for (int i = 0, size = ARRAY_LEN(array4); i < size; ++i) {
+        EXPECT_EQ(array4result[i], array4[i]);
+    }
+
+    int array5[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    reOrderOddEven(array5, ARRAY_LEN(array5));
+    int array5result[] = { 1, 9, 3, 7, 5, 6, 4, 8, 2, 10 };
+    for (int i = 0, size = ARRAY_LEN(array5); i < size; ++i) {
+        EXPECT_EQ(array5result[i], array5[i]);
+    }
+
+    int array6[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    reOrderOddEven(array6, ARRAY_LEN(array6), false);
+    int array6result[] = { 10, 2, 8, 4, 6, 5, 7, 3, 9, 1 };
+    for (int i = 0, size = ARRAY_LEN(array6); i < size; ++i) {
+        EXPECT_EQ(array6result[i], array6[i]);
+    }
+
 }
 

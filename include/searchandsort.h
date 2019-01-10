@@ -23,4 +23,6 @@ void quickSort(int* array, const int length, bool increasing = true);
  */
 int findMin(const int* const rotateArray, const int length);
 
+void reOrderOddEven(int* const array, const int length, bool flag = true);
+
 #endif /* SEARCHANDSORT_H_ */
