@@ -7,6 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "myarray.h"
+#include "common.h"
 
 TEST(myarraytest, contain) {
     // Recursive
@@ -123,3 +124,52 @@ TEST(myarraytest, merge) {
     qsort(desc, strlen(desc), sizeof(char), cmp);
     EXPECT_STREQ("aaaaaadddddfffffjjjjkllll", merge(src, desc, sizeof(desc)));
 }
+
+TEST(myarraytest, printMatrixClockwisly) {
+    //printMatrixClockwisly
+    printMatrixClockwisly(NULL, 0, 0);
+
+    std::vector<int> pOut;
+    int array1[1];
+    array1[0] = 0;
+    printMatrixClockwisly(array1, 1, 1, &pOut);
+    EXPECT_EQ(0, pOut.at(0));
+    pOut.clear();
+
+    int array2[5];
+    for (int i = 0; i < 5; ++i) {
+        array2[i] = i;
+    }
+    printMatrixClockwisly(array2, 5, 1, &pOut);
+    EXPECT_EQ(0, pOut.at(0));
+    EXPECT_EQ(4, pOut.at(4));
+    EXPECT_EQ(5, pOut.size());
+    pOut.clear();
+    printMatrixClockwisly(array2, 1, 5, &pOut);
+    EXPECT_EQ(0, pOut.at(0));
+    EXPECT_EQ(4, pOut.at(4));
+    EXPECT_EQ(5, pOut.size());
+    pOut.clear();
+
+    int array3[12];
+    for (int i = 0; i < 12; ++i) {
+        array3[i] = i;
+    }
+    printMatrixClockwisly(array3, 4, 3, &pOut);
+    EXPECT_EQ(0, pOut.at(0));
+    EXPECT_EQ(7, pOut.at(4));
+    EXPECT_EQ(6, pOut.at(11));
+    EXPECT_EQ(12, pOut.size());
+    pOut.clear();
+    printMatrixClockwisly(array3, 3, 4, &pOut);
+    EXPECT_EQ(0, pOut.at(0));
+    EXPECT_EQ(5, pOut.at(3));
+    EXPECT_EQ(7, pOut.at(11));
+    EXPECT_EQ(12, pOut.size());
+    pOut.clear();
+}
+
+
+
+
+

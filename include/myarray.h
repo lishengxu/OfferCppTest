@@ -20,4 +20,10 @@ bool contain(const int* array, int rowBegin, int rowEnd, int columnBegin,
  */
 char* merge(const char* const src, char* const desc, int maxLen);
 
+/**
+ * 顺时针打印矩阵
+ */
+void printMatrixClockwisly(const int* const array, const int rows,
+        const int columns, std::vector<int>* pOut = NULL);
+
 #endif /* ARRAY_H_ */

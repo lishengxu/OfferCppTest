@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <vector>
 
 static bool containRecursive(const int* array, int rowBegin, int rowEnd,
         int columnBegin, int columnEnd, const int rows, const int columns,
@@ -87,3 +88,57 @@ char* merge(const char* const src, char* const desc, int maxLen) {
 
     return desc;
 }
+
+static void printMatrixInCircle(const int* const array, const int start,
+        const int rows, const int columns, std::vector<int>* pOut = NULL) {
+    int endRow = rows - 1 - start, endColumn = columns - 1 - start;
+
+    for (int i = start; i <= endRow; ++i) {
+        printf("%d\n", array[start * rows + i]);
+        if (pOut != NULL) {
+            pOut->push_back(array[start * rows + i]);
+        }
+    }
+    if (start < endColumn) {
+        for (int j = start + 1; j <= endColumn; ++j) {
+            printf("%d\n", array[j * rows + endRow]);
+            if (pOut != NULL) {
+                pOut->push_back(array[j * rows + endRow]);
+            }
+        }
+    }
+    if (start < endRow && start < endColumn) {
+        for (int i = endRow - 1; i >= start; --i) {
+            printf("%d\n", array[endColumn * rows + i]);
+            if (pOut != NULL) {
+                pOut->push_back(array[endColumn * rows + i]);
+            }
+        }
+    }
+    if (start < endRow && start < endColumn - 1) {
+        for (int j = endColumn - 1; j > start; --j) {
+            printf("%d\n", array[j * rows + start]);
+            if (pOut != NULL) {
+                pOut->push_back(array[j * rows + start]);
+            }
+        }
+    }
+}
+
+void printMatrixClockwisly(const int* const array, const int rows,
+        const int columns, std::vector<int>* pOut/*= NULL*/) {
+    if (array == NULL || rows < 1 || columns < 1) {
+        return;
+    }
+
+    for (int start = 0; start + start < rows && start + start < columns;
+            ++start) {
+        printMatrixInCircle(array, start, rows, columns, pOut);
+    }
+}
+
+
+
+
+
+
