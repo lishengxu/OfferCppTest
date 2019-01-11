@@ -252,3 +252,50 @@ bool hasChildTree(BinaryTreeNode* pRoot, BinaryTreeNode* pChildRoot) {
             || hasChildTree(pRoot->mRight, pChildRoot);
 }
 
+BinaryTreeNode* mirrorRecursive(BinaryTreeNode* pRoot) {
+    if (pRoot == NULL) {
+        return NULL;
+    }
+
+    BinaryTreeNode* temp = pRoot->mLeft;
+    pRoot->mLeft = mirror(pRoot->mRight);
+    pRoot->mRight = mirror(temp);
+    return pRoot;
+}
+
+BinaryTreeNode* mirrorNonRecursive(BinaryTreeNode* pRoot) {
+    if (pRoot == NULL) {
+        return NULL;
+    }
+    std::stack<BinaryTreeNode*> stack;
+    stack.push(pRoot);
+    while (!stack.empty()) {
+        BinaryTreeNode* pCur = stack.top();
+        stack.pop();
+        BinaryTreeNode* pTemp = pCur->mLeft;
+        pCur->mLeft = pCur->mRight;
+        pCur->mRight = pTemp;
+        if (pCur->mRight != NULL) {
+            stack.push(pCur->mRight);
+        }
+
+        if (pCur->mLeft != NULL) {
+            stack.push(pCur->mLeft);
+        }
+    }
+    return pRoot;
+}
+
+BinaryTreeNode* mirror(BinaryTreeNode* pRoot, bool recursive) {
+    return recursive ? mirrorRecursive(pRoot) : mirrorNonRecursive(pRoot);
+}
+
+
+
+
+
+
+
+
+
+

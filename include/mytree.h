@@ -56,5 +56,10 @@ void levelOrder(BinaryTreeNode* pRoot, std::vector<int>* pOut = NULL);
  */
 bool hasChildTree(BinaryTreeNode* pRoot, BinaryTreeNode* pChildRoot);
 
+/**
+ * 输出一个二叉树的镜像
+ */
+BinaryTreeNode* mirror(BinaryTreeNode* pRoot, bool recursive = true);
+
 #endif /* MYTREE_H_ */
 
