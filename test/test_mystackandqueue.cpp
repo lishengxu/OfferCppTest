@@ -51,3 +51,39 @@ TEST(mystackandqueuetest, mystackwithqueue) {
     }
 }
 
+TEST(mystackandqueuetest, MyStackWithMin) {
+    MyStackWithMin<int> myStack;
+    myStack.push(5);
+    EXPECT_EQ(5, myStack.min());
+
+    myStack.push(4);
+    EXPECT_EQ(4, myStack.min());
+
+    myStack.push(6);
+    EXPECT_EQ(4, myStack.min());
+
+    myStack.push(3);
+    EXPECT_EQ(3, myStack.min());
+
+    myStack.push(1);
+    EXPECT_EQ(1, myStack.min());
+    myStack.pop();
+    EXPECT_EQ(3, myStack.min());
+    myStack.pop();
+    EXPECT_EQ(4, myStack.min());
+    myStack.pop();
+    EXPECT_EQ(4, myStack.min());
+    myStack.pop();
+    EXPECT_EQ(5, myStack.min());
+    myStack.pop();
+    try {
+        myStack.pop();
+        ADD_FAILURE();
+    } catch (std::exception& ex) {
+        EXPECT_STREQ("stack is empty", ex.what());
+    }
+}
+
+
+
+

@@ -126,5 +126,55 @@ bool MyStackWithQueue<T>::empty() {
     return queue1.empty() && queue2.empty();
 }
 
+template<typename T>
+class MyStackWithMin {
+public:
+    MyStackWithMin(void);
+    ~MyStackWithMin(void);
+
+    void push(const T& data);
+    void pop(void);
+    const T& min(void) const;
+
+private:
+    std::stack<T> mData;
+    std::stack<T> mMin;
+};
+
+template<typename T>
+MyStackWithMin<T>::MyStackWithMin() {
+}
+
+template<typename T>
+MyStackWithMin<T>::~MyStackWithMin() {
+}
+
+template<typename T>
+void MyStackWithMin<T>::push(const T& data) {
+    mData.push(data);
+    if (mMin.empty() || mMin.top() > data) {
+        mMin.push(data);
+    } else {
+        mMin.push(mMin.top());
+    }
+}
+
+template<typename T>
+void MyStackWithMin<T>::pop() {
+    if (mData.empty() || mMin.empty()) {
+        throw std::runtime_error("stack is empty");
+    }
+    mData.pop();
+    mMin.pop();
+}
+
+template<typename T>
+const T& MyStackWithMin<T>::min() const {
+    if (mMin.empty()) {
+        throw std::runtime_error("stack is empty");
+    }
+    return mMin.top();
+}
+
 #endif /* MYSTACKANDQUEUE_H_ */
 
