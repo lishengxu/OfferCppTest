@@ -61,5 +61,10 @@ bool hasChildTree(BinaryTreeNode* pRoot, BinaryTreeNode* pChildRoot);
  */
 BinaryTreeNode* mirror(BinaryTreeNode* pRoot, bool recursive = true);
 
+/**
+ * 判断某个数组是不是二叉搜索树的后序遍历序列
+ */
+bool isPostOrderOfBST(const int* const array, const int length);
+
 #endif /* MYTREE_H_ */
 

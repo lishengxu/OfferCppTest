@@ -290,6 +290,45 @@ BinaryTreeNode* mirror(BinaryTreeNode* pRoot, bool recursive) {
     return recursive ? mirrorRecursive(pRoot) : mirrorNonRecursive(pRoot);
 }
 
+static bool isPostOrderOfBSTRecursive(const int* begin, const int* end) {
+    if (begin == end) {
+        return true;
+    }
+    const int* index = begin;
+    while (index < end) {
+        if (*index > *end) {
+            break;
+        }
+        ++index;
+    }
+    const int* rightBegin = index;
+    while (index < end) {
+        if (*index < *end) {
+            break;
+        }
+        ++index;
+    }
+    if (index < end) {
+        return false;
+    }
+    bool leftIsOk = true;
+    if (begin < rightBegin) {
+        leftIsOk = isPostOrderOfBSTRecursive(begin, rightBegin - 1);
+    }
+    bool rightIsOk = true;
+    if (rightBegin < end) {
+        rightIsOk = isPostOrderOfBSTRecursive(rightBegin, end - 1);
+    }
+    return leftIsOk && rightIsOk;
+}
+
+bool isPostOrderOfBST(const int* const array, const int length) {
+    if (array == NULL || length < 1) {
+        return false;
+    }
+
+    return isPostOrderOfBSTRecursive(array, array + length - 1);
+}
 
 
 

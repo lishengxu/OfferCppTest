@@ -414,3 +414,24 @@ TEST(mytreetest, mirror) {
     destoryTree(&pMirror);
 }
 
+TEST(mytreetest, isPostOrderOfBST) {
+    EXPECT_FALSE(isPostOrderOfBST(NULL, 0));
+
+    int postOrder51[] = { 1 };
+    EXPECT_TRUE(isPostOrderOfBST(postOrder51, ARRAY_LEN(postOrder51)));
+
+    int postOrder52[] = { 1, 2 };
+    EXPECT_TRUE(isPostOrderOfBST(postOrder52, ARRAY_LEN(postOrder52)));
+
+    int postOrder53[] = { 1, 2, 3 };
+    EXPECT_TRUE(isPostOrderOfBST(postOrder53, ARRAY_LEN(postOrder53)));
+
+    int postOrder54[] = { 5, 7, 6, 9, 11, 10, 8 };
+    EXPECT_TRUE(isPostOrderOfBST(postOrder54, ARRAY_LEN(postOrder54)));
+
+    int postOrder55[] = { 7, 4, 6, 5 };
+    EXPECT_FALSE(isPostOrderOfBST(postOrder55, ARRAY_LEN(postOrder55)));
+}
+
+
+
