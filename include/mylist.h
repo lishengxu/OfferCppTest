@@ -15,6 +15,12 @@ struct ListNode {
     ListNode* mNext;
 };
 
+struct ComplexListNode {
+    int mValue;
+    ComplexListNode* mNext;
+    ComplexListNode* mSibling;
+};
+
 /**
  * 清理链表
  */
@@ -69,5 +75,10 @@ ListNode* reverseList(ListNode** pHead);
  */
 ListNode* mergeSortedLists(ListNode** pLeft, ListNode** pRight, bool recursive =
         false);
+
+/**
+ * 克隆复杂链表
+ */
+ComplexListNode* clone(ComplexListNode* pHead);
 
 #endif /* MYLIST_H_ */

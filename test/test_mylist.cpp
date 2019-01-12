@@ -326,12 +326,42 @@ TEST(mylisttest, mergeList) {
     deleteList(&pNew);
 }
 
+TEST(mylisttest, clone) {
+    EXPECT_EQ(NULL, clone(NULL));
+    ComplexListNode* pNode1 = new ComplexListNode();
+    pNode1->mValue = 1;
+    pNode1->mNext = NULL;
+    pNode1->mSibling = NULL;
 
+    ComplexListNode* pNode2 = clone(pNode1);
+    EXPECT_EQ(1, pNode2->mValue);
+    EXPECT_EQ(NULL, pNode2->mNext);
+    EXPECT_EQ(NULL, pNode2->mSibling);
+    pNode2->mValue = 2;
+    pNode1->mNext = pNode2;
 
+    ComplexListNode* pNode3 = clone(pNode1);
+    EXPECT_EQ(2, pNode3->mNext->mValue);
+    EXPECT_EQ(NULL, pNode3->mNext->mNext);
+    EXPECT_EQ(NULL, pNode3->mNext->mSibling);
+    pNode3->mValue = 3;
+    pNode3->mNext->mValue = 4;
 
+    pNode2->mNext = pNode3;
+    pNode1->mSibling = pNode3;
+    pNode2->mSibling = pNode3->mNext;
+    pNode3->mSibling = pNode2;
+    pNode3->mNext->mSibling = pNode1;
 
-
-
-
-
+    ComplexListNode* pNode4 = clone(pNode1);
+    EXPECT_EQ(1, pNode4->mValue);
+    EXPECT_EQ(2, pNode4->mNext->mValue);
+    EXPECT_EQ(3, pNode4->mNext->mNext->mValue);
+    EXPECT_EQ(4, pNode4->mNext->mNext->mNext->mValue);
+    EXPECT_EQ(1, pNode4->mNext->mNext->mNext->mSibling->mValue);
+    EXPECT_EQ(2, pNode4->mNext->mNext->mSibling->mValue);
+    EXPECT_EQ(3, pNode4->mSibling->mValue);
+    EXPECT_EQ(4, pNode4->mNext->mSibling->mValue);
+    EXPECT_EQ(NULL, pNode4->mNext->mNext->mNext->mNext);
+}
 

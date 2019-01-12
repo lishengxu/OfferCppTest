@@ -312,3 +312,55 @@ ListNode* mergeSortedLists(ListNode** pLeftHead, ListNode** pRightHead,
             mergeSortedListsNonRecursive(*pLeftHead, *pRightHead);
 }
 
+static void cloneNodes(ComplexListNode* pHead) {
+    ComplexListNode* pCur = pHead;
+    while (pCur != NULL) {
+        ComplexListNode* pNew = new ComplexListNode();
+        pNew->mValue = pCur->mValue;
+        pNew->mNext = pCur->mNext;
+        pNew->mSibling = NULL;
+        pCur->mNext = pNew;
+        pCur = pCur->mNext->mNext;
+    }
+}
+
+static void connectionSiblingNodes(ComplexListNode* pHead) {
+    ComplexListNode* pCur = pHead;
+    while (pCur != NULL) {
+        ComplexListNode* pNew = pCur->mNext;
+        if (pCur->mSibling != NULL) {
+            pNew->mSibling = pCur->mSibling->mNext;
+        }
+        pCur = pCur->mNext->mNext;
+    }
+}
+
+static ComplexListNode* reConnectionNodes(ComplexListNode* pHead) {
+    ComplexListNode* pNewHead = NULL;
+    ComplexListNode* pNew = NULL;
+    ComplexListNode* pCur = pHead;
+    if (pCur != NULL) {
+        pNewHead = pCur->mNext;
+        pNew = pCur->mNext;
+        pCur->mNext = pNew->mNext;
+        pCur = pCur->mNext;
+    }
+
+    while (pCur != NULL) {
+        pNew->mNext = pCur->mNext;
+        pNew = pCur->mNext;
+        pCur->mNext = pNew->mNext;
+        pCur = pCur->mNext;
+    }
+    return pNewHead;
+}
+
+ComplexListNode* clone(ComplexListNode* pHead) {
+    cloneNodes(pHead);
+    connectionSiblingNodes(pHead);
+    return reConnectionNodes(pHead);
+}
+
+
+
+
