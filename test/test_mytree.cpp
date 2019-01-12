@@ -433,5 +433,45 @@ TEST(mytreetest, isPostOrderOfBST) {
     EXPECT_FALSE(isPostOrderOfBST(postOrder55, ARRAY_LEN(postOrder55)));
 }
 
+TEST(mytreetest, findPath) {
+    std::vector<int> pOut;
+    findPath(NULL, 0, &pOut);
 
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1, ARRAY_LEN(preOrder1));
+    findPath(pRoot, 0, &pOut);
+    EXPECT_EQ(0, pOut.at(0));
+    pOut.clear();
+    findPath(pRoot, 1, &pOut);
+    EXPECT_EQ(0, pOut.size());
+    pOut.clear();
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder2, inOrder2, ARRAY_LEN(preOrder2));
+    findPath(pRoot, 10, &pOut);
+    EXPECT_EQ(4, pOut.size());
+    EXPECT_EQ(1, pOut.at(0));
+    EXPECT_EQ(4, pOut.at(3));
+    pOut.clear();
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    findPath(pRoot, 9, &pOut);
+    EXPECT_EQ(3, pOut.size());
+    EXPECT_EQ(1, pOut.at(0));
+    EXPECT_EQ(5, pOut.at(2));
+    pOut.clear();
+    destoryTree(&pRoot);
+
+    int preOrder41[] = { 1, 2, 4, 7, 3, 5, 9, 6, 8 };
+    int inOrder42[] = { 4, 7, 2, 1, 9, 5, 3, 8, 6 };
+    pRoot = construct(preOrder41, inOrder42, ARRAY_LEN(preOrder41));
+    findPath(pRoot, 18, &pOut);
+    EXPECT_EQ(8, pOut.size());
+    EXPECT_EQ(1, pOut.at(0));
+    EXPECT_EQ(9, pOut.at(3));
+    EXPECT_EQ(1, pOut.at(4));
+    EXPECT_EQ(8, pOut.at(7));
+    pOut.clear();
+    destoryTree(&pRoot);
+}
 

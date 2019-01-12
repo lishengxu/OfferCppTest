@@ -66,5 +66,10 @@ BinaryTreeNode* mirror(BinaryTreeNode* pRoot, bool recursive = true);
  */
 bool isPostOrderOfBST(const int* const array, const int length);
 
+/**
+ * 打印出二叉树中所有和为某值的路径
+ */
+void findPath(BinaryTreeNode* pRoot, const int sum, std::vector<int>* pOut = NULL);
+
 #endif /* MYTREE_H_ */
 

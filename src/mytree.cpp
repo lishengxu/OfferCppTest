@@ -330,10 +330,41 @@ bool isPostOrderOfBST(const int* const array, const int length) {
     return isPostOrderOfBSTRecursive(array, array + length - 1);
 }
 
+static void findPathRecursive(BinaryTreeNode* pNote, const int sum,
+        std::vector<int>* stackVector, int pathSum, std::vector<int>* pOut =
+                NULL) {
+    stackVector->push_back(pNote->mValue);
+    pathSum += pNote->mValue;
+    if (pNote->mLeft == NULL && pNote->mRight == NULL) {
+        if (pathSum == sum) {
+            for (unsigned int i = 0; i < stackVector->size(); ++i) {
+                printf("%d\n", stackVector->at(i));
+                if (pOut != NULL) {
+                    pOut->push_back(stackVector->at(i));
+                }
+            }
+        }
+    } else {
+        if (pNote->mLeft != NULL) {
+            findPathRecursive(pNote->mLeft, sum, stackVector, pathSum, pOut);
+        }
+        if (pNote->mRight != NULL) {
+            findPathRecursive(pNote->mRight, sum, stackVector, pathSum, pOut);
+        }
+    }
+    stackVector->pop_back();
+    pathSum -= pNote->mValue;
+}
 
-
-
-
+void findPath(BinaryTreeNode* pRoot, const int sum,
+        std::vector<int>* pOut/*= NULL*/) {
+    if (pRoot == NULL) {
+        return;
+    }
+    std::vector<int> stackVector;
+    int pathSum = 0;
+    findPathRecursive(pRoot, sum, &stackVector, pathSum, pOut);
+}
 
 
 
