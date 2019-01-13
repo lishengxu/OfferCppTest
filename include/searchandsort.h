@@ -23,6 +23,14 @@ void quickSort(int* array, const int length, bool increasing = true);
  */
 int findMin(const int* const rotateArray, const int length);
 
+/**
+ * 将数组中奇数放在前面，偶数放在后面
+ */
 void reOrderOddEven(int* const array, const int length, bool flag = true);
+
+/**
+ * 数组中出现次数超过一半的数字
+ */
+int moreThanHalfNum(int* array, const int length, bool change = false);
 
 #endif /* SEARCHANDSORT_H_ */

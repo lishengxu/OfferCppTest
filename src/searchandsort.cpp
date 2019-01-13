@@ -136,9 +136,67 @@ void reOrderOddEven(int* const array, const int length, bool flag) {
     reOrder(array, length, flag ? isOdd : isEven);
 }
 
+static int moreThanHalfNumChange(int* array, const int length) {
+    if (array == NULL || length < 1) {
+        throw std::invalid_argument("invalid input");
+    }
 
+    int middle = length >> 1;
+    int begin = 0, end = length - 1;
+    int index = partition(array, begin, end, true);
+    while (index != middle) {
+        if (index < middle) {
+            begin = index + 1;
+            index = partition(array, begin, end, true);
+        } else {
+            end = index - 1;
+            index = partition(array, begin, end, true);
+        }
+    }
+    int result = array[middle];
+    int count = 0;
+    for (int i = 0; i < length; ++i) {
+        if (array[i] == result) {
+            ++count;
+        }
+    }
+    if (count * 2 <= length) {
+        throw std::invalid_argument("invalid input");
+    }
+    return result;
+}
 
+static int moreThanHalfNumNonChange(const int* array, const int length) {
+    if (array == NULL || length < 1) {
+        throw std::invalid_argument("invalid input");
+    }
 
+    int number = array[0], times = 1;
+    for (int i = 1; i < length; ++i) {
+        if (times == 0) {
+            number = array[i];
+        }
+        if (array[i] == number) {
+            ++times;
+        } else {
+            --times;
+        }
+    }
+    int count = 0;
+    for (int i = 0; i < length; ++i) {
+        if (array[i] == number) {
+            ++count;
+        }
+    }
+    if (count * 2 <= length) {
+        throw std::invalid_argument("invalid input");
+    }
+    return number;
+}
 
-
+int moreThanHalfNum(int* array, const int length, bool change) {
+    return change ?
+            moreThanHalfNumChange(array, length) :
+            moreThanHalfNumNonChange(array, length);
+}
 

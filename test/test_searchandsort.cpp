@@ -132,6 +132,54 @@ TEST(searchandsorttest, reOrderOddEven) {
     for (int i = 0, size = ARRAY_LEN(array6); i < size; ++i) {
         EXPECT_EQ(array6result[i], array6[i]);
     }
-
 }
 
+TEST(searchandsorttest, moreThanHalfNum) {
+    try {
+        moreThanHalfNum(NULL, 0, true);
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+
+    int array1[] = { 1 };
+    EXPECT_EQ(1, moreThanHalfNum(array1, ARRAY_LEN(array1), true));
+
+    int array2[] = { 1, 2, 2 };
+    EXPECT_EQ(2, moreThanHalfNum(array2, ARRAY_LEN(array2), true));
+
+    int array3[] = { 1, 2, 3, 2, 2, 2, 5, 4, 2 };
+    EXPECT_EQ(2, moreThanHalfNum(array3, ARRAY_LEN(array3), true));
+
+    int array4[] = { 1, 2, 3, 5, 2, 2, 8, 2 };
+    try {
+        EXPECT_EQ(2, moreThanHalfNum(array4, ARRAY_LEN(array4), true));
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+
+    try {
+        moreThanHalfNum(NULL, 0, false);
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+
+    int array21[] = { 1 };
+    EXPECT_EQ(1, moreThanHalfNum(array21, ARRAY_LEN(array21), false));
+
+    int array22[] = { 1, 2, 2 };
+    EXPECT_EQ(2, moreThanHalfNum(array22, ARRAY_LEN(array22), false));
+
+    int array23[] = { 1, 2, 3, 2, 2, 2, 5, 4, 2 };
+    EXPECT_EQ(2, moreThanHalfNum(array23, ARRAY_LEN(array23), false));
+
+    int array24[] = { 1, 2, 3, 5, 2, 2, 8, 2 };
+    try {
+        EXPECT_EQ(2, moreThanHalfNum(array24, ARRAY_LEN(array24), false));
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+}
