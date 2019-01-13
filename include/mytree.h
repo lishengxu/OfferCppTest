@@ -71,5 +71,10 @@ bool isPostOrderOfBST(const int* const array, const int length);
  */
 void findPath(BinaryTreeNode* pRoot, const int sum, std::vector<int>* pOut = NULL);
 
+/**
+ * 将二叉搜索树转换成双向链表
+ */
+BinaryTreeNode* convert(BinaryTreeNode* pRoot);
+
 #endif /* MYTREE_H_ */
 

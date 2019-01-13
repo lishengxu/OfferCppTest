@@ -475,3 +475,65 @@ TEST(mytreetest, findPath) {
     destoryTree(&pRoot);
 }
 
+TEST(mytreetest, convert) {
+    EXPECT_EQ(NULL, convert(NULL));
+    int preOrder51[] = { 1 };
+    int inOrder52[] = { 1 };
+    BinaryTreeNode* pRoot = construct(preOrder51, inOrder52, ARRAY_LEN(preOrder51));
+    BinaryTreeNode* pList = convert(pRoot);
+    EXPECT_EQ(NULL, pList->mLeft);
+    EXPECT_EQ(NULL, pList->mRight);
+    EXPECT_EQ(1, pList->mValue);
+    delete pList;
+
+    int preOrder53[] = { 4, 3, 2, 1 };
+    int inOrder54[] = { 1, 2, 3, 4 };
+    pRoot = construct(preOrder53, inOrder54, ARRAY_LEN(preOrder53));
+    pList = convert(pRoot);
+    EXPECT_EQ(NULL, pList->mLeft);
+    EXPECT_EQ(1, pList->mValue);
+    EXPECT_EQ(2, pList->mRight->mValue);
+    EXPECT_EQ(3, pList->mRight->mRight->mValue);
+    EXPECT_EQ(4, pList->mRight->mRight->mRight->mValue);
+    EXPECT_EQ(NULL, pList->mRight->mRight->mRight->mRight);
+    for (BinaryTreeNode* pCur = pList; pCur != NULL;) {
+        BinaryTreeNode* pTemp = pCur->mRight;
+        delete pCur;
+        pCur = pTemp;
+    }
+
+    int preOrder55[] = { 1, 2, 3, 4 };
+    int inOrder56[] = { 1, 2, 3, 4 };
+    pRoot = construct(preOrder55, inOrder56, ARRAY_LEN(preOrder55));
+    pList = convert(pRoot);
+    EXPECT_EQ(NULL, pList->mLeft);
+    EXPECT_EQ(1, pList->mValue);
+    EXPECT_EQ(2, pList->mRight->mValue);
+    EXPECT_EQ(3, pList->mRight->mRight->mValue);
+    EXPECT_EQ(4, pList->mRight->mRight->mRight->mValue);
+    EXPECT_EQ(NULL, pList->mRight->mRight->mRight->mRight);
+    for (BinaryTreeNode* pCur = pList; pCur != NULL;) {
+        BinaryTreeNode* pTemp = pCur->mRight;
+        delete pCur;
+        pCur = pTemp;
+    }
+
+    int preOrder57[] = { 10, 6, 4, 8, 14, 12, 16 };
+    int inOrder58[] = { 4, 6, 8, 10, 12, 14, 16 };
+    pRoot = construct(preOrder57, inOrder58, ARRAY_LEN(preOrder57));
+    pList = convert(pRoot);
+    BinaryTreeNode* pCur = pList;
+    EXPECT_EQ(NULL, pCur->mLeft);
+    for (int i = 0; i < ARRAY_LEN(inOrder58); ++i) {
+        EXPECT_EQ(inOrder58[i], pCur->mValue);
+        pCur = pCur->mRight;
+    }
+    EXPECT_EQ(NULL, pCur);
+    for (pCur = pList; pCur != NULL;) {
+        BinaryTreeNode* pTemp = pCur->mRight;
+        delete pCur;
+        pCur = pTemp;
+    }
+}
+
+
