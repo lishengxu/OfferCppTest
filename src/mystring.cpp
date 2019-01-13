@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <vector>
+#include <string>
 
 char* copy(const char* const src) {
     if (src == NULL) {
@@ -114,5 +116,66 @@ char* replaceString(const char* const operation, const char* const src,
     return fromFirst ?
             replaceStringFromFirst(operation, src, desc) :
             replaceStringFromLast(operation, src, desc);
+}
+
+static void permutationRecursive(char* pStr, char* pBegin,
+        std::vector<std::string>* pOut = NULL) {
+    if (*pBegin == '\0') {
+        printf("%s\n", pStr);
+        if (pOut != NULL) {
+            pOut->push_back(pStr);
+        }
+    } else {
+        for (char* pIndex = pBegin; *pIndex != '\0'; ++pIndex) {
+            char temp = *pBegin;
+            *pBegin = *pIndex;
+            *pIndex = temp;
+            permutationRecursive(pStr, pBegin + 1, pOut);
+            temp = *pBegin;
+            *pBegin = *pIndex;
+            *pIndex = temp;
+        }
+    }
+}
+
+void permutation(char* pStr, std::vector<std::string>* pOut/*= NULL*/) {
+    if (pStr == NULL) {
+        return;
+    }
+    permutationRecursive(pStr, pStr, pOut);
+}
+
+static void combinationRecursive(char* pStr, int number,
+        std::vector<char>* result, std::vector<std::string>* pOut = NULL) {
+    if (number == 0) {
+        std::string str;
+        for (std::vector<char>::iterator iter = result->begin();
+                iter != result->end(); ++iter) {
+            str += *iter;
+        }
+        if (!str.empty()) {
+            printf("%s\n", str.c_str());
+            if (pOut != NULL) {
+                pOut->push_back(str);
+            }
+        }
+        return;
+    }
+    if (*pStr == '\0') {
+        return;
+    }
+    result->push_back(*pStr);
+    combinationRecursive(pStr + 1, number - 1, result, pOut);
+    result->pop_back();
+    combinationRecursive(pStr + 1, number, result, pOut);
+}
+
+void combination(char* pStr, std::vector<std::string>* pOut = NULL) {
+    if (pStr == NULL) {
+        return;
+    }
+    std::vector<char> result;
+    for (int i = 1, length = strlen(pStr); i <= length; ++i)
+        combinationRecursive(pStr, i, &result, pOut);
 }
 

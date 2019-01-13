@@ -49,3 +49,73 @@ TEST(mystringTest, replaceString) {
             "%02a%02b%02c%02d%02e%02f");
 }
 
+TEST(mystringTest, permutation) {
+    std::vector<std::string> pOut;
+    permutation(NULL, &pOut);
+
+    char a[] = "a";
+    permutation(a, &pOut);
+    EXPECT_STREQ("a", pOut.at(0).c_str());
+    pOut.clear();
+
+    char ab[] = "ab";
+    permutation(ab, &pOut);
+    EXPECT_STREQ("ab", pOut.at(0).c_str());
+    EXPECT_STREQ("ba", pOut.at(1).c_str());
+    pOut.clear();
+
+    char abc[] = "abc";
+    permutation(abc, &pOut);
+    EXPECT_EQ(6, pOut.size());
+    EXPECT_STREQ("abc", pOut.at(0).c_str());
+    EXPECT_STREQ("acb", pOut.at(1).c_str());
+    EXPECT_STREQ("bac", pOut.at(2).c_str());
+    EXPECT_STREQ("bca", pOut.at(3).c_str());
+    EXPECT_STREQ("cba", pOut.at(4).c_str());
+    EXPECT_STREQ("cab", pOut.at(5).c_str());
+    pOut.clear();
+
+    char abcdefg[] = "abcdefg";
+    permutation(abcdefg, &pOut);
+    EXPECT_EQ(7 * 6 * 5 * 4 * 3 * 2, pOut.size());
+    pOut.clear();
+}
+
+TEST(mystringTest, combination) {
+    std::vector<std::string> pOut;
+    combination(NULL, &pOut);
+
+    char a[] = "a";
+    combination(a, &pOut);
+    EXPECT_STREQ("a", pOut.at(0).c_str());
+    pOut.clear();
+
+    char ab[] = "ab";
+    combination(ab, &pOut);
+    EXPECT_STREQ("a", pOut.at(0).c_str());
+    EXPECT_STREQ("b", pOut.at(1).c_str());
+    EXPECT_STREQ("ab", pOut.at(2).c_str());
+    pOut.clear();
+
+    char abc[] = "abc";
+    combination(abc, &pOut);
+    EXPECT_EQ(7, pOut.size());
+    EXPECT_STREQ("a", pOut.at(0).c_str());
+    EXPECT_STREQ("b", pOut.at(1).c_str());
+    EXPECT_STREQ("c", pOut.at(2).c_str());
+    EXPECT_STREQ("ab", pOut.at(3).c_str());
+    EXPECT_STREQ("ac", pOut.at(4).c_str());
+    EXPECT_STREQ("bc", pOut.at(5).c_str());
+    EXPECT_STREQ("abc", pOut.at(6).c_str());
+    pOut.clear();
+
+    char abcd[] = "abcd";
+    combination(abcd, &pOut);
+    EXPECT_EQ(15, pOut.size());
+    pOut.clear();
+
+    char abcdefg[] = "abcdefg";
+    combination(abcdefg, &pOut);
+    EXPECT_EQ(7 + 21 + 35 + 35 + 21 + 7 + 1, pOut.size());
+    pOut.clear();
+}
