@@ -27,4 +27,9 @@ void permutation(char* pStr, std::vector<std::string>* pOut = NULL);
  */
 void combination(char* pStr, std::vector<std::string>* pOut = NULL);
 
+/**
+ * 第一个只出现一次的字符
+ */
+char firstNotRespondingChar(const char* pStr);
+
 #endif /* STRING_H_ */

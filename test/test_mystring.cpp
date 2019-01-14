@@ -119,3 +119,18 @@ TEST(mystringTest, combination) {
     EXPECT_EQ(7 + 21 + 35 + 35 + 21 + 7 + 1, pOut.size());
     pOut.clear();
 }
+
+TEST(mystringTest, firstNotRespondingChar) {
+    try {
+        firstNotRespondingChar(NULL);
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+
+    EXPECT_EQ('\0', firstNotRespondingChar(""));
+    EXPECT_EQ('a', firstNotRespondingChar("a"));
+    EXPECT_EQ('a', firstNotRespondingChar("abcd"));
+    EXPECT_EQ('k', firstNotRespondingChar("abkbcabi"));
+    EXPECT_EQ('k', firstNotRespondingChar("dfjlajfdladlfnjdlkjflne"));
+}

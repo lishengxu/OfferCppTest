@@ -6,6 +6,8 @@
  */
 
 #include <stdio.h>
+#include <exception>
+#include <stdexcept>
 #include <string.h>
 #include <stdlib.h>
 #include <vector>
@@ -179,3 +181,20 @@ void combination(char* pStr, std::vector<std::string>* pOut = NULL) {
         combinationRecursive(pStr, i, &result, pOut);
 }
 
+char firstNotRespondingChar(const char* pStr) {
+    if (pStr == NULL) {
+        throw std::invalid_argument("invalid input");
+    }
+    int stringHash[256] = { 0 };
+    for (unsigned int i = 0, length = strlen(pStr); i < length; ++i) {
+        ++stringHash[(int) pStr[i]];
+    }
+    char result = '\0';
+    for (unsigned int i = 0, length = strlen(pStr); i < length; ++i) {
+        if (stringHash[(int) pStr[i]] == 1) {
+            result = pStr[i];
+            break;
+        }
+    }
+    return result;
+}
