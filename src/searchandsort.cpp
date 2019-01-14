@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <exception>
 #include <stdexcept>
+#include <vector>
+#include <set>
 
 bool binarySearch(const int* const array, const int length, const int value) {
     if (array == NULL || length < 1) {
@@ -198,5 +200,55 @@ int moreThanHalfNum(int* array, const int length, bool change) {
     return change ?
             moreThanHalfNumChange(array, length) :
             moreThanHalfNumNonChange(array, length);
+}
+
+static void findLeastNumbersChange(int* array, const int length, const int k,
+        std::vector<int>* pOut = NULL) {
+    if (array == NULL || length < k) {
+        return;
+    }
+    int begin = 0, end = length - 1;
+    int index = partition(array, begin, end);
+    while (index != k - 1) {
+        if (index < k - 1) {
+            begin = index + 1;
+            index = partition(array, begin, end);
+        } else {
+            end = index - 1;
+            index = partition(array, begin, end);
+        }
+    }
+
+    for (int i = 0; i < k; ++i) {
+        pOut->push_back(array[i]);
+    }
+}
+
+static void findLeastNumbersNonChange(const int* array, const int length,
+        const int k, std::vector<int>* pOut = NULL) {
+    if (array == NULL || length < k) {
+        return;
+    }
+
+    std::multiset<int, std::greater<int> > set;
+    for (int i = 0; i < length; ++i) {
+        if (set.size() < (unsigned int) k) {
+            set.insert(array[i]);
+        } else if (*set.begin() > array[i]) {
+            set.erase(set.begin());
+            set.insert(array[i]);
+        }
+    }
+    for (std::multiset<int, std::greater<int> >::iterator iter = set.begin();
+            iter != set.end(); ++iter) {
+        pOut->push_back(*iter);
+    }
+}
+
+void findLeastNumbers(int* array, const int length, const int k, bool change,
+        std::vector<int>* pOut) {
+    return change ?
+            findLeastNumbersChange(array, length, k, pOut) :
+            findLeastNumbersNonChange(array, length, k, pOut);
 }
 

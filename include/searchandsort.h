@@ -33,4 +33,10 @@ void reOrderOddEven(int* const array, const int length, bool flag = true);
  */
 int moreThanHalfNum(int* array, const int length, bool change = false);
 
+/**
+ * 获取最小的k个数字
+ */
+void findLeastNumbers(int* array, const int length, const int k, bool change =
+        false, std::vector<int>* pOut = NULL);
+
 #endif /* SEARCHANDSORT_H_ */

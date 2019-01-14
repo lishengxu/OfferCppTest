@@ -183,3 +183,57 @@ TEST(searchandsorttest, moreThanHalfNum) {
         EXPECT_STREQ("invalid input", ex.what());
     }
 }
+
+TEST(searchandsorttest, findLeastNumbers) {
+    std::vector<int> pOut;
+    findLeastNumbers(NULL, 0, 0, false, &pOut);
+
+    int array1[] = { 1 };
+    findLeastNumbers(array1, ARRAY_LEN(array1), 1, false, &pOut);
+    EXPECT_EQ(1, pOut.at(0));
+    pOut.clear();
+
+    int array2[] = { 1, 2 };
+    findLeastNumbers(array2, ARRAY_LEN(array2), 1, false, &pOut);
+    EXPECT_EQ(1, pOut.at(0));
+    pOut.clear();
+
+    findLeastNumbers(array2, ARRAY_LEN(array2), 2, false, &pOut);
+    EXPECT_EQ(2, pOut.at(0));
+    EXPECT_EQ(1, pOut.at(1));
+    pOut.clear();
+
+    int array3[] = { 1, 3, 6, 7, 4, 3, 6, 2, 1, 8, 5 };
+    findLeastNumbers(array3, ARRAY_LEN(array3), 4, false, &pOut);
+    EXPECT_EQ(3, pOut.at(0));
+    EXPECT_EQ(2, pOut.at(1));
+    EXPECT_EQ(1, pOut.at(2));
+    EXPECT_EQ(1, pOut.at(3));
+    pOut.clear();
+
+    findLeastNumbers(NULL, 0, 0, true, &pOut);
+
+    int array21[] = { 1 };
+    findLeastNumbers(array21, ARRAY_LEN(array21), 1, true, &pOut);
+    EXPECT_EQ(1, pOut.at(0));
+    pOut.clear();
+
+    int array22[] = { 1, 2 };
+    findLeastNumbers(array22, ARRAY_LEN(array22), 1, true, &pOut);
+    EXPECT_EQ(1, pOut.at(0));
+    pOut.clear();
+
+    findLeastNumbers(array22, ARRAY_LEN(array22), 2, true, &pOut);
+    EXPECT_EQ(1, pOut.at(0));
+    EXPECT_EQ(2, pOut.at(1));
+    pOut.clear();
+
+    int array23[] = { 1, 3, 6, 7, 4, 3, 6, 2, 1, 8, 5 };
+    findLeastNumbers(array23, ARRAY_LEN(array23), 4, true, &pOut);
+    EXPECT_EQ(1, pOut.at(0));
+    EXPECT_EQ(1, pOut.at(1));
+    EXPECT_EQ(2, pOut.at(2));
+    EXPECT_EQ(3, pOut.at(3));
+    pOut.clear();
+}
+
