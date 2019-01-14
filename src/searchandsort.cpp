@@ -307,3 +307,45 @@ void printMinNumber(const int* array, const unsigned int length,
     free(strNumbers);
 }
 
+static int getInversePairs(int* array, int* copy, int begin, int end) {
+    if (begin == end) {
+        copy[begin] = array[begin];
+        return 0;
+    }
+    int middle = begin + ((end - begin) >> 1);
+    int leftCount = getInversePairs(copy, array, begin, middle);
+    int rightCount = getInversePairs(copy, array, middle + 1, end);
+
+    int leftIndex = middle, rightIndex = end, copyIndex = end;
+    int count = 0;
+    while (leftIndex >= begin && rightIndex >= middle + 1) {
+        if (array[leftIndex] > array[rightIndex]) {
+            copy[copyIndex--] = array[leftIndex--];
+            count += rightIndex - middle;
+        } else {
+            copy[copyIndex--] = array[rightIndex--];
+        }
+    }
+
+    while (leftIndex >= begin) {
+        copy[copyIndex--] = array[leftIndex--];
+    }
+    while (rightIndex >= middle + 1) {
+        copy[copyIndex--] = array[rightIndex--];
+    }
+
+    return leftCount + rightCount + count;
+}
+
+int getInversePairs(int* array, const int length) {
+    if (array == NULL || length < 1) {
+        return 0;
+    }
+
+    int copy[length];
+    for (unsigned int i = 0; i < length; ++i) {
+        copy[i] = array[i];
+    }
+
+    return getInversePairs(array, copy, 0, length - 1);
+}

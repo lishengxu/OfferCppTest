@@ -273,3 +273,14 @@ TEST(searchandsorttest, printMinNumber) {
     str.clear();
 }
 
+TEST(searchandsorttest, getInversePairs) {
+    EXPECT_EQ(0, getInversePairs(NULL, 0));
+    int array1[] = { 0 };
+    EXPECT_EQ(0, getInversePairs(array1, ARRAY_LEN(array1)));
+
+    int array2[] = { 1, 0 };
+    EXPECT_EQ(1, getInversePairs(array2, ARRAY_LEN(array2)));
+
+    int array3[] = { 7, 5, 6, 4 };
+    EXPECT_EQ(5, getInversePairs(array3, ARRAY_LEN(array3)));
+}

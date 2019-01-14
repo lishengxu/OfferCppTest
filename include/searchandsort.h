@@ -52,4 +52,9 @@ int findMaxSumOfSubArray(const int* array, const int length);
 void printMinNumber(const int* array, const unsigned int length,
         std::string& out);
 
+/**
+ * 获取数组中逆序对数量
+ */
+int getInversePairs(int* array, const int length);
+
 #endif /* SEARCHANDSORT_H_ */
