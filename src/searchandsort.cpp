@@ -252,3 +252,20 @@ void findLeastNumbers(int* array, const int length, const int k, bool change,
             findLeastNumbersNonChange(array, length, k, pOut);
 }
 
+int findMaxSumOfSubArray(const int* array, const int length) {
+    if (array == NULL || length < 1) {
+        throw std::invalid_argument("invalid input");
+    }
+
+    int maxSum = 0, curMaxSum = 0;
+    for (int i = 0; i < length; ++i) {
+        curMaxSum += array[i];
+        if (curMaxSum > maxSum) {
+            maxSum = curMaxSum;
+        }
+        if (curMaxSum < 0) {
+            curMaxSum = 0;
+        }
+    }
+    return maxSum;
+}

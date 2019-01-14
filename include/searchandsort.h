@@ -39,4 +39,6 @@ int moreThanHalfNum(int* array, const int length, bool change = false);
 void findLeastNumbers(int* array, const int length, const int k, bool change =
         false, std::vector<int>* pOut = NULL);
 
+int findMaxSumOfSubArray(const int* array, const int length);
+
 #endif /* SEARCHANDSORT_H_ */

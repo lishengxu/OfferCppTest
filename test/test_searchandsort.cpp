@@ -237,3 +237,22 @@ TEST(searchandsorttest, findLeastNumbers) {
     pOut.clear();
 }
 
+TEST(searchandsorttest, findMaxSumOfSubArray) {
+    try {
+        findMaxSumOfSubArray(NULL, 0);
+        int array[] = { };
+        findMaxSumOfSubArray(array, ARRAY_LEN(array));
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+
+    int array1[] = { 1 };
+    EXPECT_EQ(1, findMaxSumOfSubArray(array1, ARRAY_LEN(array1)));
+
+    int array2[] = { 1, -2, 3 };
+    EXPECT_EQ(3, findMaxSumOfSubArray(array2, ARRAY_LEN(array2)));
+
+    int array3[] = { 1, -2, 3, 10, -4, 7, 2, -5 };
+    EXPECT_EQ(18, findMaxSumOfSubArray(array3, ARRAY_LEN(array3)));
+}
