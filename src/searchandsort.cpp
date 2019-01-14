@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 #include <algorithm>
 #include <exception>
 #include <stdexcept>
@@ -269,3 +270,40 @@ int findMaxSumOfSubArray(const int* array, const int length) {
     }
     return maxSum;
 }
+
+static const int sMaxIntLength = 10;
+static char sCompare1[sMaxIntLength * 2 + 1];
+static char sCompare2[sMaxIntLength * 2 + 1];
+
+static int compare(const void* left, const void* right) {
+    strcpy(sCompare1, *(const char**) left);
+    strcat(sCompare1, *(const char**) right);
+    strcpy(sCompare2, *(const char**) right);
+    strcat(sCompare2, *(const char**) left);
+
+    return strcmp(sCompare1, sCompare2);
+}
+
+void printMinNumber(const int* array, const unsigned int length,
+        std::string& out) {
+    if (array == NULL || length < 1) {
+        return;
+    }
+
+    char** strNumbers = (char**) calloc(length, sizeof(char*));
+    for (unsigned int i = 0; i < length; ++i) {
+        strNumbers[i] = (char*) calloc(sMaxIntLength + 1, sizeof(char));
+        snprintf(strNumbers[i], sMaxIntLength, "%d", array[i]);
+    }
+
+    qsort(strNumbers, length, sizeof(char*), compare);
+
+    for (unsigned int i = 0; i < length; ++i) {
+        printf("%s", strNumbers[i]);
+        out += strNumbers[i];
+        free(strNumbers[i]);
+    }
+    printf("\n");
+    free(strNumbers);
+}
+

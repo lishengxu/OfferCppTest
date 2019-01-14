@@ -8,6 +8,8 @@
 #ifndef SEARCHANDSORT_H_
 #define SEARCHANDSORT_H_
 
+#include <string>
+
 /**
  * 递增数组二分查找
  */
@@ -39,6 +41,15 @@ int moreThanHalfNum(int* array, const int length, bool change = false);
 void findLeastNumbers(int* array, const int length, const int k, bool change =
         false, std::vector<int>* pOut = NULL);
 
+/**
+ * 和做大公共子序列
+ */
 int findMaxSumOfSubArray(const int* array, const int length);
+
+/**
+ * 输出数组中数字能排列的最小的数字组合
+ */
+void printMinNumber(const int* array, const unsigned int length,
+        std::string& out);
 
 #endif /* SEARCHANDSORT_H_ */

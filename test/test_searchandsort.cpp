@@ -256,3 +256,20 @@ TEST(searchandsorttest, findMaxSumOfSubArray) {
     int array3[] = { 1, -2, 3, 10, -4, 7, 2, -5 };
     EXPECT_EQ(18, findMaxSumOfSubArray(array3, ARRAY_LEN(array3)));
 }
+
+TEST(searchandsorttest, printMinNumber) {
+    std::string str;
+    printMinNumber(NULL, 0, str);
+    EXPECT_EQ(0, str.length());
+
+    int array1[] = { 1 };
+    printMinNumber(array1, ARRAY_LEN(array1), str);
+    EXPECT_STREQ("1", str.c_str());
+    str.clear();
+
+    int array2[] = { 1, 21, 112, 1212, 3, 321 };
+    printMinNumber(array2, ARRAY_LEN(array2), str);
+    EXPECT_STREQ("11121212213213", str.c_str());
+    str.clear();
+}
+
