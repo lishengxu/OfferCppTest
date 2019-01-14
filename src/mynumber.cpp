@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <algorithm>
+#include <math.h>
 
 int fibonacci(int n) {
     if (n <= 0) {
@@ -304,4 +305,56 @@ const char* add(const char* left, const char* right) {
     std::reverse(newStr, newStrIndex);
     return newStr;
 }
+
+static int powerBase10(unsigned int n) {
+    int result = 1;
+    for (unsigned int i = 0; i < n; ++i) {
+        result *= 10;
+    }
+    return result;
+}
+
+static int countOf1Between1ToN(const char* number) {
+    if (number == NULL) {
+        return 0;
+    }
+    int first = *number - '0';
+    int length = strlen(number);
+    if (first == 0 && length == 1) {
+        return 0;
+    }
+    if (first > 0 && length == 1) {
+        return 1;
+    }
+
+    int countFirstDigit = 0;
+    if (first > 1) {
+        countFirstDigit = powerBase10(length - 1);
+    } else if (first == 1) {
+        countFirstDigit = atoi(number + 1) + 1;
+    }
+    int countOtherDigits = first * (length - 1) * powerBase10(length - 2);
+
+    int countRecursive = countOf1Between1ToN(number + 1);
+    return countFirstDigit + countOtherDigits + countRecursive;
+}
+
+int countOf1Between1ToN(unsigned int n) {
+    if (n == 0) {
+        return 0;
+    }
+
+    std::string numberStr;
+
+    unsigned int number = n;
+    while (number != 0) {
+        numberStr.push_back('0' + number % 10);
+        number /= 10;
+    }
+    std::reverse(numberStr.begin(), numberStr.end());
+
+    return countOf1Between1ToN(numberStr.c_str());
+}
+
+
 

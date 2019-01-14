@@ -29,4 +29,9 @@ void print1ToMaxOfNDigits(const int n, bool recursive = true,
  */
 const char* add(const char* left, const char* right);
 
+/**
+ * 从1到n整数中1出现的次数
+ */
+int countOf1Between1ToN(unsigned int n);
+
 #endif /* MYNUMBER_H_ */

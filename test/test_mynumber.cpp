@@ -100,10 +100,36 @@ TEST(mynumbertest, add) {
     } catch (std::exception& ex) {
         EXPECT_STREQ("invalid input", ex.what());
     }
-
 }
 
+static int numberOf1(unsigned int n) {
+    int number = 0;
+    while (n) {
+        if (n % 10 == 1) {
+            ++number;
+        }
+        n /= 10;
+    }
+    return number;
+}
 
+static int numberOf1ToN(unsigned int n) {
+    int number = 0;
+    for (unsigned int i = 1; i <= n; ++i) {
+        number += numberOf1(i);
+    }
+    return number;
+}
+
+TEST(mynumbertest, countOf1Between1ToN) {
+    EXPECT_EQ(0, countOf1Between1ToN(0));
+    EXPECT_EQ(1, countOf1Between1ToN(1));
+    EXPECT_EQ(5, countOf1Between1ToN(12));
+
+    EXPECT_EQ(numberOf1ToN(100), countOf1Between1ToN(100));
+    EXPECT_EQ(numberOf1ToN(12345), countOf1Between1ToN(12345));
+
+}
 
 
 
