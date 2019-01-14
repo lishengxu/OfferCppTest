@@ -356,5 +356,37 @@ int countOf1Between1ToN(unsigned int n) {
     return countOf1Between1ToN(numberStr.c_str());
 }
 
+static int minUgly(int value1, int value2, int value3) {
+    int result = value1 < value2 ? value1 : value2;
+    return result < value3 ? result : value3;
+}
 
+int getUglyNumber(unsigned int n) {
+    if (n == 0) {
+        return 0;
+    }
+    int* uglyNumbers = (int*) malloc(n * sizeof(int));
+    uglyNumbers[0] = 1;
+    unsigned int index = 1;
+    unsigned int index2 = 0, index3 = 0, index5 = 0;
+    while (index < n) {
+        int min = minUgly(uglyNumbers[index2] * 2, uglyNumbers[index3] * 3,
+                uglyNumbers[index5] * 5);
+        uglyNumbers[index] = min;
+        if (uglyNumbers[index2] * 2 <= min) {
+            ++index2;
+        }
+        if (uglyNumbers[index3] * 3 <= min) {
+            ++index3;
+        }
+        if (uglyNumbers[index5] * 5 <= min) {
+            ++index5;
+        }
+        ++index;
+    }
+
+    int result = uglyNumbers[n - 1];
+    free(uglyNumbers);
+    return result;
+}
 

@@ -131,9 +131,44 @@ TEST(mynumbertest, countOf1Between1ToN) {
 
 }
 
+static bool isUgly(unsigned int number) {
+    while (number % 2 == 0) {
+        number /= 2;
+    }
+    while (number % 3 == 0) {
+        number /= 3;
+    }
+    while (number % 5 == 0) {
+        number /= 5;
+    }
+    return number == 1;
+}
 
+static unsigned int getUgly(unsigned int n) {
+    if (n == 0) {
+        return 0;
+    }
+    unsigned int number = 0;
+    unsigned int uglyFound = 0;
+    while (uglyFound < n) {
+        ++number;
+        if (isUgly(number)) {
+            ++uglyFound;
+        }
+    }
+    return number;
+}
 
-
-
-
+TEST(mynumbertest, getUglyNumber) {
+    EXPECT_EQ(1, getUglyNumber(1));
+    EXPECT_EQ(2, getUglyNumber(2));
+    EXPECT_EQ(3, getUglyNumber(3));
+    EXPECT_EQ(4, getUglyNumber(4));
+    EXPECT_EQ(5, getUglyNumber(5));
+    EXPECT_EQ(5832, getUglyNumber(150));
+    for (unsigned int i = 0; i < 200; ++i) {
+        EXPECT_EQ(getUgly(i), getUglyNumber(i)) << " is differ at " << i
+                << std::endl;
+    }
+}
 

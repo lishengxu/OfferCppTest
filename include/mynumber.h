@@ -34,4 +34,9 @@ const char* add(const char* left, const char* right);
  */
 int countOf1Between1ToN(unsigned int n);
 
+/**
+ * 获取丑数
+ */
+int getUglyNumber(unsigned int n);
+
 #endif /* MYNUMBER_H_ */
