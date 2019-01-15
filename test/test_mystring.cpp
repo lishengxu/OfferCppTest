@@ -134,3 +134,52 @@ TEST(mystringTest, firstNotRespondingChar) {
     EXPECT_EQ('k', firstNotRespondingChar("abkbcabi"));
     EXPECT_EQ('k', firstNotRespondingChar("dfjlajfdladlfnjdlkjflne"));
 }
+
+TEST(mystringTest, reverseSentence) {
+    reverseSentence(NULL, 0);
+    char sentence1[] = "a";
+    reverseSentence(sentence1, strlen(sentence1));
+    EXPECT_STREQ("a", sentence1);
+
+    char sentence2[] = "ab";
+    reverseSentence(sentence2, strlen(sentence2));
+    EXPECT_STREQ("ab", sentence2);
+
+    char sentence3[] = "ab cd ";
+    reverseSentence(sentence3, strlen(sentence3));
+    EXPECT_STREQ(" cd ab", sentence3);
+
+    char sentence4[] = " I am a student. ";
+    reverseSentence(sentence4, strlen(sentence4));
+    EXPECT_STREQ(" student. a am I ", sentence4);
+}
+
+TEST(mystringTest, leftRotateString) {
+    leftRotateString(NULL, 0);
+    char sentence1[] = "a";
+    leftRotateString(sentence1, 0);
+    EXPECT_STREQ("a", sentence1);
+    leftRotateString(sentence1, 1);
+    EXPECT_STREQ("a", sentence1);
+
+    char sentence2[] = "ab";
+    leftRotateString(sentence2, 1);
+    EXPECT_STREQ("ba", sentence2);
+    leftRotateString(sentence2, 2);
+    EXPECT_STREQ("ba", sentence2);
+
+    char sentence3[] = "abcd";
+    leftRotateString(sentence3, 2);
+    EXPECT_STREQ("cdab", sentence3);
+    leftRotateString(sentence3, 2);
+    EXPECT_STREQ("abcd", sentence3);
+
+    char sentence4[] = "Iamastudent.";
+    leftRotateString(sentence4, 3);
+    EXPECT_STREQ("astudent.Iam", sentence4);
+    leftRotateString(sentence4, 3);
+    EXPECT_STREQ("udent.Iamast", sentence4);
+}
+
+
+

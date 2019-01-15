@@ -32,4 +32,14 @@ void combination(char* pStr, std::vector<std::string>* pOut = NULL);
  */
 char firstNotRespondingChar(const char* pStr);
 
+/**
+ * 翻转单词顺序
+ */
+void reverseSentence(char* sentence, const int length);
+
+/**
+ * 左旋转字符串
+ */
+void leftRotateString(char* pStr, const int n);
+
 #endif /* STRING_H_ */

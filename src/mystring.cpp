@@ -198,3 +198,55 @@ char firstNotRespondingChar(const char* pStr) {
     }
     return result;
 }
+
+static void reverse(char* pBegin, char* pEnd) {
+    if (pBegin == NULL || pEnd == NULL) {
+        return;
+    }
+    while (pBegin < pEnd) {
+        char temp = *pBegin;
+        *pBegin = *pEnd;
+        *pEnd = temp;
+        ++pBegin, --pEnd;
+    }
+}
+
+void reverseSentence(char* sentence, const int length) {
+    if (sentence == NULL || length < 1) {
+        return;
+    }
+
+    char* pBegin = sentence;
+    char* pEnd = sentence + length - 1;
+    reverse(pBegin, pEnd);
+
+    pBegin = pEnd = sentence;
+    while (*pBegin != '\0') {
+        if (*pBegin == ' ') {
+            ++pBegin, ++pEnd;
+        } else if (*pEnd == ' ' || *pEnd == '\0') {
+            reverse(pBegin, pEnd - 1);
+            pBegin = pEnd;
+        } else {
+            ++pEnd;
+        }
+    }
+}
+
+void leftRotateString(char* pStr, const int n) {
+    if (pStr == NULL) {
+        return;
+    }
+    int length = strlen(pStr);
+    if (length < n || n < 0) {
+        return;
+    }
+    char* begin = pStr;
+    char* end = pStr + length - 1;
+    char* pNIndex = begin + n - 1;
+    reverse(begin, pNIndex);
+    if (pNIndex < end) {
+        reverse(pNIndex + 1, end);
+    }
+    reverse(begin, end);
+}
