@@ -81,4 +81,9 @@ ListNode* mergeSortedLists(ListNode** pLeft, ListNode** pRight, bool recursive =
  */
 ComplexListNode* clone(ComplexListNode* pHead);
 
+/**
+ * 获取两个链表的第一个公共节点
+ */
+ListNode* getFirstCommonNode(ListNode* pLeft, ListNode* pRight);
+
 #endif /* MYLIST_H_ */

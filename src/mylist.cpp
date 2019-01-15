@@ -361,6 +361,41 @@ ComplexListNode* clone(ComplexListNode* pHead) {
     return reConnectionNodes(pHead);
 }
 
+int getListLength(ListNode* pHead) {
+    int length = 0;
+    ListNode* pCur = pHead;
+    while (pCur != NULL) {
+        ++length;
+        pCur = pCur->mNext;
+    }
+    return length;
+}
 
-
+ListNode* getFirstCommonNode(ListNode* pLeft, ListNode* pRight) {
+    if (pLeft == NULL || pRight == NULL) {
+        return NULL;
+    }
+    int leftLength = getListLength(pLeft);
+    int rightLength = getListLength(pRight);
+    int diffLength = leftLength - rightLength;
+    ListNode* pLongList = pLeft;
+    ListNode* pShortList = pRight;
+    if (diffLength < 0) {
+        pLongList = pRight;
+        pShortList = pLeft;
+        diffLength = -diffLength;
+    }
+    while (diffLength > 0) {
+        --diffLength;
+        pLongList = pLongList->mNext;
+    }
+    while (pLongList != NULL && pShortList != NULL && pLongList != pShortList) {
+        pLongList = pLongList->mNext;
+        pShortList = pShortList->mNext;
+    }
+    if (pLongList != NULL) {
+        return pLongList;
+    }
+    return NULL;
+}
 

@@ -365,3 +365,30 @@ TEST(mylisttest, clone) {
     EXPECT_EQ(NULL, pNode4->mNext->mNext->mNext->mNext);
 }
 
+TEST(mylisttest, getFirstCommonNode) {
+    EXPECT_EQ(NULL, getFirstCommonNode(NULL, NULL));
+    ListNode* pLeft = NULL;
+    addToTail(&pLeft, 1);
+    ListNode* pRight = NULL;
+    addToTail(&pRight, 1);
+    EXPECT_EQ(NULL, getFirstCommonNode(pLeft, pRight));
+
+    pRight->mNext = pLeft;
+    EXPECT_EQ(pLeft, getFirstCommonNode(pLeft, pRight));
+
+    pRight->mNext = NULL;
+    addToTail(&pRight, 2);
+    addToTail(&pRight, 3);
+    ListNode* pNode1 = addToTail(&pRight, 4);
+
+    addToTail(&pLeft, 2);
+    ListNode* pNode = addToTail(&pLeft, 3);
+    addToTail(&pLeft, 4);
+    addToTail(&pLeft, 5);
+    pNode1->mNext = pNode;
+    EXPECT_EQ(pNode, getFirstCommonNode(pLeft, pRight));
+    pNode1->mNext = NULL;
+    deleteList(&pLeft);
+    deleteList(&pRight);
+}
+
