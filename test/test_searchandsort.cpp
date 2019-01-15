@@ -284,3 +284,17 @@ TEST(searchandsorttest, getInversePairs) {
     int array3[] = { 7, 5, 6, 4 };
     EXPECT_EQ(5, getInversePairs(array3, ARRAY_LEN(array3)));
 }
+
+TEST(searchandsorttest, countOfK) {
+    EXPECT_EQ(0, countOfK(NULL, 0, 0));
+
+    int array1[] = { 1 };
+    EXPECT_EQ(0, countOfK(array1, ARRAY_LEN(array1), 0));
+    EXPECT_EQ(1, countOfK(array1, ARRAY_LEN(array1), 1));
+
+    int array2[] = { 1, 2, 2, 2, 3, 3, 4, 5, 5, 5, 5, 5, 5, 6, 7, 8 };
+    EXPECT_EQ(2, countOfK(array2, ARRAY_LEN(array2), 3));
+    EXPECT_EQ(3, countOfK(array2, ARRAY_LEN(array2), 2));
+    EXPECT_EQ(6, countOfK(array2, ARRAY_LEN(array2), 5));
+}
+

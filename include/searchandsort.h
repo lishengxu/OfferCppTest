@@ -55,6 +55,11 @@ void printMinNumber(const int* array, const unsigned int length,
 /**
  * 获取数组中逆序对数量
  */
-int getInversePairs(int* array, const int length);
+int getInversePairs(int* array, const unsigned int length);
+
+/**
+ * 获取排序数组中某个值的次数
+ */
+int countOfK(const int* const array, const int length, const int k);
 
 #endif /* SEARCHANDSORT_H_ */

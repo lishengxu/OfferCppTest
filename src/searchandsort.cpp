@@ -337,7 +337,7 @@ static int getInversePairs(int* array, int* copy, int begin, int end) {
     return leftCount + rightCount + count;
 }
 
-int getInversePairs(int* array, const int length) {
+int getInversePairs(int* array, const unsigned int length) {
     if (array == NULL || length < 1) {
         return 0;
     }
@@ -349,3 +349,65 @@ int getInversePairs(int* array, const int length) {
 
     return getInversePairs(array, copy, 0, length - 1);
 }
+
+static int firstIndexOfK(const int* const array, int begin, int end,
+        const int k) {
+    if (array == NULL || begin > end) {
+        return -1;
+    }
+    int index = -1;
+    while (begin <= end) {
+        int middle = begin + ((end - begin) >> 1);
+        if (array[middle] == k) {
+            if ((middle > 0 && array[middle - 1] != k) || middle == 0) {
+                index = middle;
+                break;
+            } else {
+                end = middle - 1;
+            }
+        } else if (array[middle] < k) {
+            begin = middle + 1;
+        } else {
+            end = middle - 1;
+        }
+    }
+    return index;
+}
+
+static int lastIndexOfK(const int* const array, int begin, int end,
+        const int k) {
+    if (array == NULL || begin > end) {
+        return -1;
+    }
+    int index = -1;
+    while (begin <= end) {
+        int middle = begin + ((end - begin) >> 1);
+        if (array[middle] == k) {
+            if ((middle < end && array[middle + 1] != k) || middle == end) {
+                index = middle;
+                break;
+            } else {
+                begin = middle + 1;
+            }
+        } else if (array[middle] < k) {
+            begin = middle + 1;
+        } else {
+            end = middle - 1;
+        }
+    }
+    return index;
+}
+
+int countOfK(const int* const array, const int length, const int k) {
+    if (array == NULL || length < 1) {
+        return 0;
+    }
+
+    int first = firstIndexOfK(array, 0, length - 1, k);
+    int last = lastIndexOfK(array, 0, length - 1, k);
+    if (first != -1 && last != -1) {
+        return last - first + 1;
+    }
+    return 0;
+}
+
