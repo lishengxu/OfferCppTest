@@ -45,4 +45,15 @@ int getUglyNumber(unsigned int n);
 void findNumberAppearOnce(const int* const array, const unsigned int length,
         int* number1, int* number2);
 
+/**
+ * 获取排序的数组中和为s的两个数字
+ */
+bool findNumbersWithSum(const int* const array, const unsigned int length,
+        const int sum, int* number1, int* number2);
+
+/**
+ * 获取和为s的正数序列
+ */
+bool findSequencesWithSum(const int sum, std::vector<int>* pOut = NULL);
+
 #endif /* MYNUMBER_H_ */

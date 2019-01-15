@@ -423,3 +423,57 @@ void findNumberAppearOnce(const int* const array, const unsigned int length,
     }
 }
 
+bool findNumbersWithSum(const int* const array, const unsigned int length,
+        const int sum, int* number1, int* number2) {
+    if (array == NULL || length < 1) {
+        return false;
+    }
+    bool found = false;
+    int begin = 0, end = length - 1;
+    while (begin < end) {
+        int curSum = array[begin] + array[end];
+        if (curSum == sum) {
+            *number1 = array[begin];
+            *number2 = array[end];
+            found = true;
+            break;
+        } else if (curSum < sum) {
+            ++begin;
+        } else {
+            --end;
+        }
+    }
+    return found;
+}
+
+static void printSequeces(const int small, const int big,
+        std::vector<int>* pOut = NULL) {
+    for (int index = small; index <= big; ++index) {
+        printf("%d\n", index);
+        if (pOut != NULL) {
+            pOut->push_back(index);
+        }
+    }
+}
+
+bool findSequencesWithSum(const int sum, std::vector<int>* pOut) {
+    bool found = false;
+    int small = 1, big = 2;
+    int curSum = small + big;
+    int middle = (sum + 1) >> 1;
+    while (small < middle) {
+        if (curSum == sum) {
+            printSequeces(small, big, pOut);
+            found = true;
+            break;
+        } else if (curSum < sum) {
+            ++big;
+            curSum += big;
+        } else {
+            curSum -= small;
+            ++small;
+        }
+    }
+    return found;
+}
+

@@ -188,3 +188,36 @@ TEST(mynumbertest, findNumberAppearOnce) {
     EXPECT_EQ(4, number2);
 }
 
+TEST(mynumbertest, findNumbersWithSum) {
+    int number1 = 0, number2 = 0;
+    findNumbersWithSum(NULL, 0, 0, &number1, &number2);
+
+    int array1[] = { 1, 2 };
+    EXPECT_TRUE(
+            findNumbersWithSum(array1, ARRAY_LEN(array1), 3, &number1, &number2));
+    EXPECT_EQ(1, number1);
+    EXPECT_EQ(2, number2);
+
+    int array2[] = { 2, 2, 3, 4, 5, 5, 6, 7 };
+    EXPECT_TRUE(
+            findNumbersWithSum(array2, ARRAY_LEN(array2), 8, &number1, &number2));
+    EXPECT_EQ(2, number1);
+    EXPECT_EQ(6, number2);
+}
+
+TEST(mynumbertest, findSequencesWithSum) {
+    std::vector<int> pOut;
+    EXPECT_TRUE(findSequencesWithSum(3, &pOut));
+    EXPECT_EQ(1, pOut.at(0));
+    EXPECT_EQ(2, pOut.at(1));
+    pOut.clear();
+
+    EXPECT_TRUE(findSequencesWithSum(30, &pOut));
+    EXPECT_EQ(4, pOut.at(0));
+    EXPECT_EQ(5, pOut.at(1));
+    EXPECT_EQ(6, pOut.at(2));
+    EXPECT_EQ(7, pOut.at(3));
+    EXPECT_EQ(8, pOut.at(4));
+    pOut.clear();
+    EXPECT_FALSE(findSequencesWithSum(32, &pOut));
+}
