@@ -28,6 +28,5 @@ static int countOf1InNumber2(int n) {
 }
 
 int countOf1InNumber(int n, bool flag/*= true*/) {
-    flag ? countOf1InNumber1(n) : countOf1InNumber2(n);
+    return flag ? countOf1InNumber1(n) : countOf1InNumber2(n);
 }
-

@@ -7,6 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "mynumber.h"
+#include "common.h"
 
 TEST(mynumbertest, fibonacci) {
     EXPECT_EQ(0, fibonacci(-1));
@@ -170,5 +171,20 @@ TEST(mynumbertest, getUglyNumber) {
         EXPECT_EQ(getUgly(i), getUglyNumber(i)) << " is differ at " << i
                 << std::endl;
     }
+}
+
+TEST(mynumbertest, findNumberAppearOnce) {
+    int number1 = 0, number2 = 0;
+    findNumberAppearOnce(NULL, 0, &number1, &number2);
+
+    int array1[] = { 1, 2 };
+    findNumberAppearOnce(array1, ARRAY_LEN(array1), &number1, &number2);
+    EXPECT_EQ(1, number1);
+    EXPECT_EQ(2, number2);
+
+    int array2[] = { 2, 4, 3, 6, 3, 2, 5, 5 };
+    findNumberAppearOnce(array2, ARRAY_LEN(array2), &number1, &number2);
+    EXPECT_EQ(6, number1);
+    EXPECT_EQ(4, number2);
 }
 

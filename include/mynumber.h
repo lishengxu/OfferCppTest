@@ -39,4 +39,10 @@ int countOf1Between1ToN(unsigned int n);
  */
 int getUglyNumber(unsigned int n);
 
+/**
+ * 获取数组中只出现一次的两个数字，其他数字出现两次
+ */
+void findNumberAppearOnce(const int* const array, const unsigned int length,
+        int* number1, int* number2);
+
 #endif /* MYNUMBER_H_ */

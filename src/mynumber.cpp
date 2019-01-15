@@ -390,3 +390,36 @@ int getUglyNumber(unsigned int n) {
     return result;
 }
 
+static unsigned int getFirstBitOf1(int number) {
+    unsigned int indexBit = 0;
+    while ((number & 0x01) == 0 && indexBit < 8 * sizeof(int)) {
+        number >>= 1;
+        ++indexBit;
+    }
+    return indexBit;
+}
+
+static bool isBit1(int number, unsigned int indexBit) {
+    return (number >> indexBit) & 0x01;
+}
+
+void findNumberAppearOnce(const int* const array, const unsigned int length,
+        int* number1, int* number2) {
+    if (array == NULL || length < 1) {
+        return;
+    }
+    int number = 0;
+    for (unsigned int i = 0; i < length; ++i) {
+        number ^= array[i];
+    }
+    unsigned int indexOf1 = getFirstBitOf1(number);
+    *number1 = *number2 = 0;
+    for (unsigned int i = 0; i < length; ++i) {
+        if (isBit1(array[i], indexOf1)) {
+            *number1 ^= array[i];
+        } else {
+            *number2 ^= array[i];
+        }
+    }
+}
+
