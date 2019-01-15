@@ -56,4 +56,10 @@ bool findNumbersWithSum(const int* const array, const unsigned int length,
  */
 bool findSequencesWithSum(const int sum, std::vector<int>* pOut = NULL);
 
+/**
+ * n个骰子的点数
+ */
+void printAllProbality(const int n, std::vector<float> *pOut = NULL,
+        const int maxValue = 6);
+
 #endif /* MYNUMBER_H_ */

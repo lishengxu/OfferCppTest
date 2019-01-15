@@ -477,3 +477,36 @@ bool findSequencesWithSum(const int sum, std::vector<int>* pOut) {
     return found;
 }
 
+void printAllProbality(const int n, std::vector<float> *pOut/* = NULL*/,
+        const int maxValue/* = 6*/) {
+    if (n == 0) {
+        return;
+    }
+    int *pBuffer = (int *) calloc(maxValue * n + 1, sizeof(int));
+    for (int i = 1; i <= maxValue; ++i) {
+        pBuffer[i] = 1;
+    }
+
+    for (int i = 2; i <= n; ++i) {
+        for (int j = maxValue * i; j >= i; --j) {
+            unsigned int sum = 0;
+            for (int k = j - 1; (k > 0) && (k > j - 7); --k) {
+                sum += pBuffer[k];
+            }
+            pBuffer[j] = sum;
+        }
+
+        for (int j = 1; j < i; ++j) {
+            pBuffer[j] = 0;
+        }
+    }
+
+    double base = pow(maxValue, n);
+    for (unsigned int i = n; i <= n * maxValue; ++i) {
+        printf("%f\n", pBuffer[i] / base);
+        if (pOut != NULL) {
+            pOut->push_back(pBuffer[i] / base);
+        }
+    }
+    free(pBuffer);
+}
