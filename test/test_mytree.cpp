@@ -437,7 +437,8 @@ TEST(mytreetest, findPath) {
     std::vector<int> pOut;
     findPath(NULL, 0, &pOut);
 
-    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1, ARRAY_LEN(preOrder1));
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
     findPath(pRoot, 0, &pOut);
     EXPECT_EQ(0, pOut.at(0));
     pOut.clear();
@@ -479,7 +480,8 @@ TEST(mytreetest, convert) {
     EXPECT_EQ(NULL, convert(NULL));
     int preOrder51[] = { 1 };
     int inOrder52[] = { 1 };
-    BinaryTreeNode* pRoot = construct(preOrder51, inOrder52, ARRAY_LEN(preOrder51));
+    BinaryTreeNode* pRoot = construct(preOrder51, inOrder52,
+            ARRAY_LEN(preOrder51));
     BinaryTreeNode* pList = convert(pRoot);
     EXPECT_EQ(NULL, pList->mLeft);
     EXPECT_EQ(NULL, pList->mRight);
@@ -536,4 +538,38 @@ TEST(mytreetest, convert) {
     }
 }
 
+TEST(mytreetest, depth) {
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
+    EXPECT_EQ(1, depth(pRoot));
+    destoryTree(&pRoot);
 
+    pRoot = construct(preOrder2, inOrder2, ARRAY_LEN(preOrder2));
+    EXPECT_EQ(4, depth(pRoot));
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    EXPECT_EQ(4, depth(pRoot));
+    destoryTree(&pRoot);
+}
+
+TEST(mytreetest, isBalanced) {
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
+    EXPECT_TRUE(isBalanced(pRoot));
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder2, inOrder2, ARRAY_LEN(preOrder2));
+    EXPECT_FALSE(isBalanced(pRoot));
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    EXPECT_FALSE(isBalanced(pRoot));
+    destoryTree(&pRoot);
+
+    int preOrder5[] = { 1, 2, 4, 7, 9, 3, 5, 6, 8 };
+    int inOrder5[] = { 4, 7, 2, 9, 1, 5, 3, 8, 6 };
+    pRoot = construct(preOrder5, inOrder5, ARRAY_LEN(preOrder5));
+    EXPECT_TRUE(isBalanced(pRoot));
+    destoryTree(&pRoot);
+}

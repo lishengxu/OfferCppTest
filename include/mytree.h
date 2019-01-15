@@ -76,5 +76,15 @@ void findPath(BinaryTreeNode* pRoot, const int sum, std::vector<int>* pOut = NUL
  */
 BinaryTreeNode* convert(BinaryTreeNode* pRoot);
 
+/**
+ * 获取二叉树的深度
+ */
+int depth(BinaryTreeNode* pRoot);
+
+/**
+ * 判断二叉树是否是平衡二叉树
+ */
+bool isBalanced(BinaryTreeNode* pRoot);
+
 #endif /* MYTREE_H_ */
 

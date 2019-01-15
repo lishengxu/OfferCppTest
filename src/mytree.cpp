@@ -393,3 +393,38 @@ BinaryTreeNode* convert(BinaryTreeNode* pRoot) {
     return pList;
 }
 
+int depth(BinaryTreeNode* pRoot) {
+    if (pRoot == NULL) {
+        return 0;
+    }
+    int leftDepth = depth(pRoot->mLeft);
+    int rightDepth = depth(pRoot->mRight);
+    return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+}
+
+static bool isBalanced(BinaryTreeNode* pNode, int* depth) {
+    if (pNode == NULL) {
+        *depth = 0;
+        return true;
+    }
+
+    int leftDepth = 0, rightDepth = 0;
+    if (isBalanced(pNode->mLeft, &leftDepth)
+            && isBalanced(pNode->mRight, &rightDepth)) {
+        if (leftDepth - rightDepth <= 1 && leftDepth - rightDepth >= -1) {
+            *depth = leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isBalanced(BinaryTreeNode* pRoot) {
+    if (pRoot == NULL) {
+        return false;
+    }
+
+    int depth = 0;
+    return isBalanced(pRoot, &depth);
+}
+
