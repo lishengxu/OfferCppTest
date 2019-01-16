@@ -479,33 +479,32 @@ bool findSequencesWithSum(const int sum, std::vector<int>* pOut) {
 
 void printAllProbality(const int n, std::vector<float> *pOut/* = NULL*/,
         const int maxValue/* = 6*/) {
-    if (n == 0) {
+    if (n < 1) {
         return;
     }
-    int *pBuffer = (int *) calloc(maxValue * n + 1, sizeof(int));
+    int* pBuffer = (int*) calloc(n * maxValue + 1, sizeof(int));
     for (int i = 1; i <= maxValue; ++i) {
         pBuffer[i] = 1;
     }
 
     for (int i = 2; i <= n; ++i) {
-        for (int j = maxValue * i; j >= i; --j) {
-            unsigned int sum = 0;
-            for (int k = j - 1; (k > 0) && (k > j - 7); --k) {
+        for (int j = i * maxValue; j >= i; --j) {
+            int sum = 0;
+            for (int k = j - 1; k > 0 && k > j - 7; --k) {
                 sum += pBuffer[k];
             }
             pBuffer[j] = sum;
         }
-
-        for (int j = 1; j < i; ++j) {
+        for (int j = i - 1; j > 0; --j) {
             pBuffer[j] = 0;
         }
     }
 
-    double base = pow(maxValue, n);
-    for (unsigned int i = n; i <= n * maxValue; ++i) {
-        printf("%f\n", pBuffer[i] / base);
+    double total = pow(maxValue, n);
+    for (int i = n; i <= n * maxValue; ++i) {
+        printf("%f\n", pBuffer[i] / total);
         if (pOut != NULL) {
-            pOut->push_back(pBuffer[i] / base);
+            pOut->push_back(pBuffer[i] / total);
         }
     }
     free(pBuffer);
