@@ -251,3 +251,17 @@ TEST(mynumbertest, printProbability) {
     pOut.clear();
 }
 
+TEST(mynumbertest, isContinuous) {
+    EXPECT_FALSE(isContinuous(NULL, 0));
+    int array1[] = { 0, 1, 2, 4, 5 };
+    EXPECT_TRUE(isContinuous(array1, ARRAY_LEN(array1)));
+    int array2[] = { 0, 0, 1, 2, 3, 5, 6, 7, 9 };
+    EXPECT_TRUE(isContinuous(array2, ARRAY_LEN(array2)));
+    int array3[] = { 0, 0, 1, 2, 3, 5, 6, 7, 9, 11 };
+    EXPECT_FALSE(isContinuous(array3, ARRAY_LEN(array3)));
+    int array4[] = { 0, 0, 1, 2, 3, 5, 5, 6, 7, 9 };
+    EXPECT_FALSE(isContinuous(array4, ARRAY_LEN(array4)));
+    int array5[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    EXPECT_TRUE(isContinuous(array5, ARRAY_LEN(array5)));
+}
+

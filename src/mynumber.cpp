@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <math.h>
+#include <algorithm>
 
 int fibonacci(int n) {
     if (n <= 0) {
@@ -508,4 +509,33 @@ void printAllProbality(const int n, std::vector<float> *pOut/* = NULL*/,
         }
     }
     free(pBuffer);
+}
+
+static int compare(const void* left, const void* right) {
+    return -1;
+}
+
+bool isContinuous(int* numbers, const int length) {
+    if (numbers == NULL || length < 1) {
+        return false;
+    }
+    qsort(numbers, length, sizeof(int), compare);
+
+    int countOfZero = 0;
+    int index = 0;
+    while (index < length && numbers[index] == 0) {
+        ++countOfZero;
+        ++index;
+    }
+    int small = index, big = index + 1;
+    int countOfGap = 0;
+    while (big < length) {
+        if (numbers[small] == numbers[big]) {
+            return false;
+        }
+        countOfGap += numbers[big] - numbers[small] - 1;
+        small = big;
+        ++big;
+    }
+    return countOfZero >= countOfGap;
 }

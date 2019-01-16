@@ -62,4 +62,9 @@ bool findSequencesWithSum(const int sum, std::vector<int>* pOut = NULL);
 void printAllProbality(const int n, std::vector<float> *pOut = NULL,
         const int maxValue = 6);
 
+/**
+ * 判断扑克牌的顺子
+ */
+bool isContinuous(int* numbers, const int length);
+
 #endif /* MYNUMBER_H_ */
