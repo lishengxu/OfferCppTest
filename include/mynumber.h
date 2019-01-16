@@ -67,4 +67,9 @@ void printAllProbality(const int n, std::vector<float> *pOut = NULL,
  */
 bool isContinuous(int* numbers, const int length);
 
+/**
+ * 圆圈中最后剩下的数字
+ */
+int lastRemaining(unsigned int n, unsigned int m, bool function1 = true);
+
 #endif /* MYNUMBER_H_ */

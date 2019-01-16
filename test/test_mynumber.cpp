@@ -265,3 +265,15 @@ TEST(mynumbertest, isContinuous) {
     EXPECT_TRUE(isContinuous(array5, ARRAY_LEN(array5)));
 }
 
+TEST(mynumbertest, lastRemaining) {
+    EXPECT_EQ(-1, lastRemaining(0, 0));
+    EXPECT_EQ(1, lastRemaining(2, 1));
+    EXPECT_EQ(3, lastRemaining(5, 3));
+    EXPECT_EQ(1027, lastRemaining(4000, 997));
+
+    EXPECT_EQ(-1, lastRemaining(0, 0, false));
+    EXPECT_EQ(1, lastRemaining(2, 1, false));
+    EXPECT_EQ(3, lastRemaining(5, 3, false));
+    EXPECT_EQ(1027, lastRemaining(4000, 997, false));
+}
+

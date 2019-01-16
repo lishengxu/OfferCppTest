@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <math.h>
 #include <algorithm>
+#include <list>
 
 int fibonacci(int n) {
     if (n <= 0) {
@@ -539,3 +540,43 @@ bool isContinuous(int* numbers, const int length) {
     }
     return countOfZero >= countOfGap;
 }
+
+static int lastRemaining1(unsigned int n, unsigned int m) {
+    std::list<int> numbers;
+    for (unsigned int i = 0; i < n; ++i) {
+        numbers.push_back(i);
+    }
+    std::list<int>::iterator cur = numbers.begin();
+    while (numbers.size() > 1) {
+        for (unsigned int i = 1; i < m; ++i) {
+            ++cur;
+            if (cur == numbers.end()) {
+                cur = numbers.begin();
+            }
+        }
+        std::list<int>::iterator next = ++cur;
+        if (next == numbers.end()) {
+            next = numbers.begin();
+        }
+        --cur;
+        numbers.erase(cur);
+        cur = next;
+    }
+    return *cur;
+}
+
+static int lastRemaining2(unsigned int n, unsigned int m) {
+    unsigned int last = 0;
+    for (unsigned int i = 2; i <= n; ++i) {
+        last = (last + m) % i;
+    }
+    return last;
+}
+
+int lastRemaining(unsigned int n, unsigned int m, bool function1) {
+    if (n < 1 || m < 1) {
+        return -1;
+    }
+    return function1 ? lastRemaining1(n, m) : lastRemaining2(n, m);
+}
+
