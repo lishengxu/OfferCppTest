@@ -17,6 +17,11 @@ struct BinaryTreeNode {
     BinaryTreeNode* mRight;
 };
 
+struct TreeNode {
+    int mValue;
+    std::vector<TreeNode*> mChild;
+};
+
 /**
  * 使用前序遍历数组和中序遍历数组构建二叉树
  */
@@ -69,7 +74,8 @@ bool isPostOrderOfBST(const int* const array, const int length);
 /**
  * 打印出二叉树中所有和为某值的路径
  */
-void findPath(BinaryTreeNode* pRoot, const int sum, std::vector<int>* pOut = NULL);
+void findPath(BinaryTreeNode* pRoot, const int sum, std::vector<int>* pOut =
+NULL);
 
 /**
  * 将二叉搜索树转换成双向链表
@@ -85,6 +91,18 @@ int depth(BinaryTreeNode* pRoot);
  * 判断二叉树是否是平衡二叉树
  */
 bool isBalanced(BinaryTreeNode* pRoot);
+
+/**
+ * 获取树中节点的共同祖先
+ */
+BinaryTreeNode* getCommonParentOfBST(BinaryTreeNode* pRoot,
+        BinaryTreeNode* pNode1, BinaryTreeNode* pNode2);
+
+BinaryTreeNode* getCommonParentOfBT(BinaryTreeNode* pRoot,
+        BinaryTreeNode* pNode1, BinaryTreeNode* pNode2);
+
+TreeNode* getCommonParentOfT(TreeNode* pRoot, TreeNode* pNode1,
+        TreeNode* pNode2);
 
 #endif /* MYTREE_H_ */
 

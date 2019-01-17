@@ -573,3 +573,118 @@ TEST(mytreetest, isBalanced) {
     EXPECT_TRUE(isBalanced(pRoot));
     destoryTree(&pRoot);
 }
+
+TEST(mytreetest, getCommonParentOfBST) {
+    EXPECT_EQ(NULL, getCommonParentOfBST(NULL, NULL, NULL));
+
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
+    EXPECT_EQ(pRoot, getCommonParentOfBST(pRoot, pRoot, pRoot));
+    destoryTree(&pRoot);
+
+    int preOrder21[] = { 10, 6, 4, 8, 14, 12, 16 };
+    int inOrder22[] = { 4, 6, 8, 10, 12, 14, 16 };
+    pRoot = construct(preOrder21, inOrder22, ARRAY_LEN(preOrder21));
+    EXPECT_EQ(pRoot->mLeft,
+            getCommonParentOfBST(pRoot, pRoot->mLeft->mLeft,
+                    pRoot->mLeft->mRight));
+    destoryTree(&pRoot);
+
+    int preOrder31[] = { 10, 6, 4, 5, 8, 7, 9, 14, 12, 11, 16 };
+    int inOrder32[] = { 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16 };
+    pRoot = construct(preOrder31, inOrder32, ARRAY_LEN(preOrder31));
+    EXPECT_EQ(pRoot,
+            getCommonParentOfBST(pRoot, pRoot->mLeft->mLeft,
+                    pRoot->mRight->mRight));
+    EXPECT_EQ(pRoot->mLeft,
+            getCommonParentOfBST(pRoot, pRoot->mLeft->mLeft->mRight,
+                    pRoot->mLeft->mRight->mLeft));
+    destoryTree(&pRoot);
+}
+
+TEST(mytreetest, getCommonParentOfBT) {
+    EXPECT_EQ(NULL, getCommonParentOfBT(NULL, NULL, NULL));
+
+    BinaryTreeNode* pRoot = construct(preOrder1, inOrder1,
+            ARRAY_LEN(preOrder1));
+    EXPECT_EQ(pRoot, getCommonParentOfBT(pRoot, pRoot, pRoot));
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder2, inOrder2, ARRAY_LEN(preOrder2));
+    EXPECT_EQ(pRoot->mLeft,
+            getCommonParentOfBT(pRoot, pRoot->mLeft,
+                    pRoot->mLeft->mLeft->mLeft));
+    destoryTree(&pRoot);
+
+    pRoot = construct(preOrder3, inOrder3, ARRAY_LEN(preOrder3));
+    EXPECT_EQ(pRoot,
+            getCommonParentOfBT(pRoot, pRoot->mLeft->mLeft,
+                    pRoot->mRight->mRight));
+    EXPECT_EQ(pRoot->mRight,
+            getCommonParentOfBT(pRoot, pRoot->mRight->mLeft,
+                    pRoot->mRight->mRight->mLeft));
+    destoryTree(&pRoot);
+}
+
+TreeNode* getTreeNode(int value) {
+    TreeNode* pNew = new TreeNode();
+    pNew->mValue = value;
+    return pNew;
+}
+
+void destoryTree(TreeNode* pNode) {
+    for (std::vector<TreeNode*>::iterator iter = pNode->mChild.begin();
+            iter != pNode->mChild.end(); ++iter) {
+        destoryTree(*iter);
+    }
+    free(pNode);
+}
+
+TEST(mytreetest, getCommonParentOfT) {
+    EXPECT_EQ(NULL, getCommonParentOfT(NULL, NULL, NULL));
+
+    TreeNode* pRoot = getTreeNode(1);
+    TreeNode* pNode2 = getTreeNode(2);
+    TreeNode* pNode3 = getTreeNode(3);
+    TreeNode* pNode4 = getTreeNode(4);
+    TreeNode* pNode5 = getTreeNode(5);
+    TreeNode* pNode6 = getTreeNode(6);
+    TreeNode* pNode7 = getTreeNode(7);
+    TreeNode* pNode8 = getTreeNode(8);
+    TreeNode* pNode9 = getTreeNode(9);
+    TreeNode* pNode10 = getTreeNode(10);
+    TreeNode* pNode11 = getTreeNode(11);
+    TreeNode* pNode12 = getTreeNode(12);
+    TreeNode* pNode13 = getTreeNode(13);
+    TreeNode* pNode14 = getTreeNode(14);
+    TreeNode* pNode15 = getTreeNode(15);
+    TreeNode* pNode16 = getTreeNode(16);
+    TreeNode* pNode17 = getTreeNode(17);
+    TreeNode* pNode18 = getTreeNode(18);
+    TreeNode* pNode19 = getTreeNode(19);
+    TreeNode* pNode20 = getTreeNode(20);
+    EXPECT_EQ(pRoot, getCommonParentOfT(pRoot, pRoot, pRoot));
+    pRoot->mChild.push_back(pNode2);
+    pRoot->mChild.push_back(pNode3);
+    pRoot->mChild.push_back(pNode4);
+    pNode2->mChild.push_back(pNode5);
+    pNode2->mChild.push_back(pNode6);
+    pNode2->mChild.push_back(pNode7);
+    pNode2->mChild.push_back(pNode8);
+    pNode6->mChild.push_back(pNode16);
+    pNode6->mChild.push_back(pNode17);
+    pNode7->mChild.push_back(pNode18);
+    pNode18->mChild.push_back(pNode19);
+    pNode19->mChild.push_back(pNode20);
+    pNode3->mChild.push_back(pNode9);
+    pNode3->mChild.push_back(pNode10);
+    pNode3->mChild.push_back(pNode11);
+    pNode9->mChild.push_back(pNode12);
+    pNode12->mChild.push_back(pNode13);
+    pNode12->mChild.push_back(pNode14);
+    pNode12->mChild.push_back(pNode15);
+    destoryTree(pRoot);
+    std::vector<int> a;
+    a.push_back(1
+            );
+}
