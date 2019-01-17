@@ -665,3 +665,52 @@ unsigned int sum(unsigned int n, int function) {
     return result;
 }
 
+int add2(int left, int right) {
+    do {
+        int sum = left ^ right;
+        int carry = (left & right) << 1;
+        left = sum;
+        right = carry;
+    } while (right != 0);
+    return left;
+}
+
+enum status {
+    kValid = 0, kInvalid
+};
+
+int strToInt(const char* const pStr) {
+    if (pStr == NULL) {
+        throw std::invalid_argument("invalid input");
+        return 0;
+    }
+
+    const char* pIndex = pStr;
+    bool positiveFlag = true;
+    if (*pIndex == '+') {
+        ++pIndex;
+    } else if (*pIndex == '-') {
+        ++pIndex;
+        positiveFlag = false;
+    }
+    if (*pIndex == '\0') {
+        throw std::invalid_argument("invalid input");
+        return 0;
+    }
+    long long result = 0;
+    while (*pIndex != '\0') {
+        int number = *pIndex++ - '0';
+        if (number <= 9 && number >= 0) {
+            result = result * 10 + number;
+        } else {
+            result = 0;
+            throw std::invalid_argument("invalid input");
+        }
+        if ((positiveFlag && result > 0x7FFFFFFF)
+                || (!positiveFlag && result > 0x80000000)) {
+            result = 0;
+            throw std::invalid_argument("invalid input");
+        }
+    }
+    return (int) result * (positiveFlag ? 1 : -1);
+}

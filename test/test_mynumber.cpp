@@ -6,6 +6,8 @@
  */
 
 #include "gtest/gtest.h"
+#include <exception>
+#include <stdexcept>
 #include "mynumber.h"
 #include "common.h"
 
@@ -301,3 +303,54 @@ TEST(mynumbertest, sum) {
     }
 }
 
+TEST(mynumbertest, add2) {
+    EXPECT_EQ(0, add2(0, 0));
+    EXPECT_EQ(1, add2(0, 1));
+    EXPECT_EQ(100, add2(1, 99));
+}
+
+TEST(mynumbertest, strToInt) {
+    try {
+        EXPECT_EQ(0, strToInt(NULL));
+        EXPECT_EQ(0, strToInt("+"));
+        EXPECT_EQ(0, strToInt("-"));
+        EXPECT_EQ(0, strToInt("1234a456"));
+        EXPECT_EQ(0, strToInt("32340284309284"));
+        EXPECT_EQ(0, strToInt("-32340284309284"));
+        ADD_FAILURE();
+    } catch (std::invalid_argument& ex) {
+        EXPECT_STREQ("invalid input", ex.what());
+    }
+
+    EXPECT_EQ(0, strToInt("0"));
+    EXPECT_EQ(-123, strToInt("-123"));
+    EXPECT_EQ(123, strToInt("+123"));
+    EXPECT_EQ(123, strToInt("123"));
+    EXPECT_EQ(12345678, strToInt("12345678"));
+}
+
+TEST(mynumbertest, strToInt2) {
+    EXPECT_EQ(0, strToInt2(NULL));
+    EXPECT_EQ(1, gStrToIntStatus);
+    EXPECT_EQ(0, strToInt2("+"));
+    EXPECT_EQ(1, gStrToIntStatus);
+    EXPECT_EQ(0, strToInt2("-"));
+    EXPECT_EQ(1, gStrToIntStatus);
+    EXPECT_EQ(0, strToInt2("1234a456"));
+    EXPECT_EQ(1, gStrToIntStatus);
+    EXPECT_EQ(0, strToInt2("32340284309284"));
+    EXPECT_EQ(1, gStrToIntStatus);
+    EXPECT_EQ(0, strToInt2("-32340284309284"));
+    EXPECT_EQ(1, gStrToIntStatus);
+
+    EXPECT_EQ(0, strToInt2("0"));
+    EXPECT_EQ(0, gStrToIntStatus);
+    EXPECT_EQ(-123, strToInt2("-123"));
+    EXPECT_EQ(0, gStrToIntStatus);
+    EXPECT_EQ(123, strToInt2("+123"));
+    EXPECT_EQ(0, gStrToIntStatus);
+    EXPECT_EQ(123, strToInt2("123"));
+    EXPECT_EQ(0, gStrToIntStatus);
+    EXPECT_EQ(12345678, strToInt2("12345678"));
+    EXPECT_EQ(0, gStrToIntStatus);
+}

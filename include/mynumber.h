@@ -77,4 +77,55 @@ int lastRemaining(unsigned int n, unsigned int m, bool function1 = true);
  */
 unsigned int sum(unsigned int n, int function = 1);
 
+/**
+ * 不用加减乘除做加法
+ */
+int add2(int left, int right);
+
+/**
+ * 字符串转换成整数
+ */
+int strToInt(const char* const pStr);
+enum StrToIntStatus {
+    VALID = 0, INVALID
+};
+StrToIntStatus gStrToIntStatus = VALID;
+int strToInt2(const char* const pStr) {
+    if (pStr == NULL) {
+        gStrToIntStatus = INVALID;
+        return 0;
+    }
+    gStrToIntStatus = VALID;
+    const char* pIndex = pStr;
+    bool positiveFlag = true;
+    if (*pIndex == '+') {
+        ++pIndex;
+    } else if (*pIndex == '-') {
+        ++pIndex;
+        positiveFlag = false;
+    }
+    if (*pIndex == '\0') {
+        gStrToIntStatus = INVALID;
+        return 0;
+    }
+    long long result = 0;
+    while (*pIndex != '\0') {
+        int number = *pIndex++ - '0';
+        if (number >= 0 && number <= 9) {
+            result = result * 10 + number;
+        } else {
+            break;
+        }
+        if ((positiveFlag && result > 0x7FFFFFFF)
+                || (!positiveFlag && result > 0x80000000)) {
+            break;
+        }
+    }
+    if (*pIndex != 0) {
+        gStrToIntStatus = INVALID;
+        result = 0;
+    }
+    return result * (positiveFlag ? 1 : -1);
+}
+
 #endif /* MYNUMBER_H_ */
