@@ -277,3 +277,27 @@ TEST(mynumbertest, lastRemaining) {
     EXPECT_EQ(1027, lastRemaining(4000, 997, false));
 }
 
+static unsigned int testSum(unsigned int n) {
+    return (1 + n) * n / 2;
+}
+
+TEST(mynumbertest, sum) {
+    EXPECT_EQ(0, sum(0, 1));
+    EXPECT_EQ(1, sum(1, 1));
+    for (unsigned int i = 1; i < 1000; ++i) {
+        EXPECT_EQ(testSum(i), sum(i, 1));
+    }
+
+    EXPECT_EQ(0, sum(0, 2));
+    EXPECT_EQ(1, sum(1, 2));
+    for (unsigned int i = 1; i < 1000; ++i) {
+        EXPECT_EQ(testSum(i), sum(i, 2));
+    }
+
+    EXPECT_EQ(0, sum(0, 3));
+    EXPECT_EQ(1, sum(1, 3));
+    for (unsigned int i = 1; i < 1000; ++i) {
+        EXPECT_EQ(testSum(i), sum(i, 3));
+    }
+}
+

@@ -72,4 +72,9 @@ bool isContinuous(int* numbers, const int length);
  */
 int lastRemaining(unsigned int n, unsigned int m, bool function1 = true);
 
+/**
+ * 计算0+1+...+n的和
+ */
+unsigned int sum(unsigned int n, int function = 1);
+
 #endif /* MYNUMBER_H_ */

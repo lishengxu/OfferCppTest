@@ -580,3 +580,88 @@ int lastRemaining(unsigned int n, unsigned int m, bool function1) {
     return function1 ? lastRemaining1(n, m) : lastRemaining2(n, m);
 }
 
+class Temp {
+public:
+    Temp(void) {
+        ++n;
+        sum += n;
+    }
+
+    static void reset(void) {
+        n = 0;
+        sum = 0;
+    }
+
+    static unsigned int getSum() {
+        return sum;
+    }
+private:
+    static unsigned int n;
+    static unsigned int sum;
+};
+
+unsigned int Temp::n = 0;
+unsigned int Temp::sum = 0;
+
+static unsigned int sum1(unsigned int n) {
+    Temp::reset();
+    Temp temp[n];
+    return Temp::getSum();
+}
+
+class A {
+public:
+    virtual unsigned int sum(unsigned int n) {
+        return 0;
+    }
+    virtual ~A() {
+    }
+};
+
+A* array[2];
+class B: public A {
+public:
+    virtual unsigned int sum(unsigned int n) {
+        return array[!!n]->sum(n - 1) + n;
+    }
+};
+
+static unsigned int sum2(unsigned int n) {
+    A a;
+    B b;
+    array[0] = &a;
+    array[1] = &b;
+    return array[!!n]->sum(n);
+}
+
+typedef unsigned int (*func)(unsigned int n);
+unsigned int func1(unsigned int n) {
+    return 0;
+}
+unsigned int func2(unsigned int n) {
+    static func f[2] = { func1, func2 };
+    return f[!!n](n - 1) + n;
+}
+
+static unsigned int sum3(unsigned int n) {
+    return func2(n);
+}
+
+unsigned int sum(unsigned int n, int function) {
+    unsigned int result = 0;
+    switch (function) {
+    case 1:
+        result = sum1(n);
+        break;
+    case 2:
+        result = sum2(n);
+        break;
+    case 3:
+        result = sum3(n);
+        break;
+    default:
+        break;
+    }
+    return result;
+}
+
