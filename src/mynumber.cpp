@@ -513,7 +513,7 @@ void printAllProbality(const int n, std::vector<float> *pOut/* = NULL*/,
 }
 
 static int compare(const void* left, const void* right) {
-    return -1;
+    return *(int*) left - *(int*) right;
 }
 
 bool isContinuous(int* numbers, const int length) {
